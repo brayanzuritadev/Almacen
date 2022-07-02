@@ -4,7 +4,6 @@
  */
 package manejoProductos.producto;
 
-import conexionDB.ConexionSQLServer;
 import manejoProductos.producto.ProductoServicio;
 import manejoProductos.producto.IProductoServicio;
 

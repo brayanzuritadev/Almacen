@@ -12,7 +12,7 @@ import conexionDB.IConexionServicio;
  * @author Brayan
  */
 public class CategoriaDaoFabrica {
-    public static ICategoriaDao Construir(){
+    public static ICategoriaDao construir(){
         IConexionServicio con = ConexionServicioFabrica.construir();
         return new CategoriaDao(con);
     }

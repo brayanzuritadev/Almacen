@@ -25,7 +25,6 @@ public class CategoriaDao implements ICategoriaDao {
 
     @Override
     public void guardar(Categoria c) {
-
         try {
             String SQL = "INSERT INTO Categoria (nombre)"
                     + "VALUES(?)";

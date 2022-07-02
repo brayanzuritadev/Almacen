@@ -5,11 +5,9 @@
         <group>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/ICategoriaServicio.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/dao/CategoriaDao.java</file>
+            <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/producto/dao/ProductoDao.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/vistas/Tabla.java</file>
-<<<<<<< Updated upstream
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/vistas/VProducto.java</file>
-=======
->>>>>>> Stashed changes
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/producto/dao/ProductoDaoFabrica.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/CategoriaServicioFabrica.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/vistas/Principal.java</file>
@@ -17,14 +15,12 @@
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/dao/CategoriaDaoFabrica.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/vistas/Login.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/producto/IProductoServicio.java</file>
+            <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/producto/dao/IProductoDao.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/Categoria.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/CategoriaServicio.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/producto/Producto.java</file>
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/categoria/dao/ICategoriaDao.java</file>
-<<<<<<< Updated upstream
             <file>file:/C:/Users/Brayan/Documents/NetBeansProjects/Almacen/src/manejoProductos/producto/ProductoServicioFabrica.java</file>
-=======
->>>>>>> Stashed changes
         </group>
     </open-files>
 </project-private>

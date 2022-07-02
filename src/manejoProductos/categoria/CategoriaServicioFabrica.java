@@ -5,10 +5,7 @@
 package manejoProductos.categoria;
 
 import manejoProductos.categoria.dao.CategoriaDaoFabrica;
-import conexionDB.ConexionH2;
-import conexionDB.ConexionSQLServer;
-import manejoProductos.categoria.CategoriaServicio;
-import manejoProductos.categoria.ICategoriaServicio;
+
 
 /**
  *
@@ -16,9 +13,7 @@ import manejoProductos.categoria.ICategoriaServicio;
  */
 public class CategoriaServicioFabrica {
     public static ICategoriaServicio Construir(){
-            
-       
-        var categoriaDao = CategoriaDaoFabrica.Construir();
+        var categoriaDao = CategoriaDaoFabrica.construir();
         return new CategoriaServicio();
     }
 }

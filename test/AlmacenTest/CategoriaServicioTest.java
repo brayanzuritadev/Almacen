@@ -25,7 +25,7 @@ public class CategoriaServicioTest {
 
     @Test
     public void testMethod() {
-        var sut = new CategoriaServicio(new ConexionSQLServer(), new CategoriaDao(new ConexionSQLServer()));
-        var res = sut.obtenerCategorias();
+        /*var sut = new CategoriaServicio(new ConexionSQLServer(), new CategoriaDao(new ConexionSQLServer()));
+        var res = sut.obtenerCategorias();*/
     }
 }

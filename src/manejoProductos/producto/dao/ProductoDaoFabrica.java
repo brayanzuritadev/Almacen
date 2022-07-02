@@ -4,13 +4,8 @@ import conexionDB.ConexionServicioFabrica;
 import conexionDB.IConexionServicio;
 
 public class ProductoDaoFabrica {
-    public IProductoDao construir(){
-<<<<<<< Updated upstream
-        var con =new ConexionServicioFabrica();
-        return null;
-=======
+    public static IProductoDao construir(){
         IConexionServicio conexion = ConexionServicioFabrica.construir();
         return new ProductoDao(conexion);
->>>>>>> Stashed changes
     }
 }

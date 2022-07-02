@@ -37,7 +37,8 @@ public class VProducto extends javax.swing.JPanel {
         modelo.addColumn("PCompra");
         modelo.addColumn("PVenta");
         modelo.addColumn("Tipo de guardado");
-        
+        this.jTable2.setModel(modelo);
+        limpiarTabla();
         llenarTablaProductos();
     }
 
@@ -321,9 +322,9 @@ public class VProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
-        /*jTextField5.getText().toString();
+        jTextField5.getText().toString();
         IProductoServicio pr = ProductoServicioFabrica.Construir();
-        var productos = pr.buscarProducto(jTextField5.getText().toString());
+        var productos = pr.buscarProductos(jTextField5.getText().toString());
         Object[] datos = new Object[modelo.getColumnCount()];
         limpiarTabla();
         for (Producto item : productos) {
@@ -337,7 +338,7 @@ public class VProducto extends javax.swing.JPanel {
             datos[6]=item.gettGuardado();
             modelo.addRow(datos);
         }
-        this.jTable2.setModel(modelo);*/
+        this.jTable2.setModel(modelo);
     }//GEN-LAST:event_jTextField5KeyPressed
     
         private void buscarCategoria(int id, String nombre) {
@@ -371,17 +372,19 @@ public class VProducto extends javax.swing.JPanel {
     }
     
     private void limpiarTabla(){
-        for (int i = 0; i < jTable2.getRowCount(); i++) {
+        System.out.println(jTable2.getRowCount());
+        for (int i = 0; i < this.jTable2.getRowCount(); i++) {
         modelo.removeRow(i);
         i-=1;
         }
     }
     
     private void llenarTablaProductos() {
-        /*IProductoServicio ptt = ProductoServicioFabrica.Construir();
+        limpiarTabla();
+        IProductoServicio ptt = ProductoServicioFabrica.Construir();
         var productos = ptt.obtenerProductos();
         Object[] datos = new Object[modelo.getColumnCount()];
-
+        
         for (Producto item : productos) {
             datos[0]=item.getCodProducto();
             datos[1]=item.getNombre();
@@ -394,7 +397,7 @@ public class VProducto extends javax.swing.JPanel {
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);
-*/
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

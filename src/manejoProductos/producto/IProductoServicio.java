@@ -14,5 +14,5 @@ public interface IProductoServicio {
     public void registrar(Producto p);
     public void modificar(Producto p);
     public ArrayList<Producto> obtenerProductos();
-    public ArrayList<Producto> buscarProducto(String valor);
+    public ArrayList<Producto> buscarProductos(String valor);
 }
