@@ -13,6 +13,6 @@ import java.util.ArrayList;
 public interface IProductoServicio {
     public void registrar(Producto p);
     public void modificar(Producto p);
-    public ArrayList<Producto> obtenerProductos();
-    public ArrayList<Producto> buscarProductos(String valor);
+    public ArrayList<Object[]> obtenerProductos();
+    public ArrayList<Object[]> buscarProductos(String valor);
 }

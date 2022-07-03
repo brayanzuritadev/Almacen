@@ -71,25 +71,28 @@ public class ProductoDao implements IProductoDao{
     }
 
     @Override
-    public ArrayList<Producto> obtener() {
-        var resultado = new ArrayList<manejoProductos.producto.Producto>();
+    public ArrayList<Object[]> obtener() {
+        var resultado = new ArrayList<Object[]>();
         try {
-            String sql = "SELECT * FROM Producto";
+            String sql = "SELECT idProducto, p.nombre, descripcion, c.nombre, precioCompra, precioVenta, tipoGuardado"
+                    + " FROM Producto as p"
+                    + " inner join Categoria as c"
+                    + " on p.idCategoria=c.Idcategoria";
 
             var con = conexion.getConexion();
             var prepareStatement = con.prepareStatement(sql);
             var resultSet = prepareStatement.executeQuery();
 
             while (resultSet.next()) {
-                var p = new manejoProductos.producto.Producto();
+                var p = new Object[7];
 
-                p.setCodProducto(resultSet.getString("idProducto"));
-                p.setNombre(resultSet.getString("nombre"));
-                p.setDescripcion(resultSet.getString("descripcion"));
-                p.setIdCategoria(resultSet.getInt("idCategoria"));
-                p.setpCompra(resultSet.getDouble("precioCompra"));
-                p.setpVenta(resultSet.getDouble("precioVenta"));
-                p.settGuardado(resultSet.getString("tipoGuardado"));
+                p[0]=(resultSet.getString(1));
+                p[1]=(resultSet.getString(2));
+                p[2]=(resultSet.getString(3));
+                p[3]=(resultSet.getString(4));
+                p[4]=(resultSet.getDouble(5));
+                p[5]=(resultSet.getDouble(6));
+                p[6]=(resultSet.getString(7));
                 resultado.add(p);
 
             }
@@ -102,25 +105,27 @@ public class ProductoDao implements IProductoDao{
     }
 
     @Override
-    public ArrayList<Producto> buscar(String nombre) {
-        var resultado = new ArrayList<manejoProductos.producto.Producto>();
+    public ArrayList<Object[]> buscar(String nombre) {
+        var resultado = new ArrayList<Object[]>();
         try{
-            String sql = "SELECT * FROM Producto "
-                    +"WHERE (nombre LIKE '%"+ nombre + "%') OR (idProducto LIKE '%"+ nombre + "%')" ;
+            String sql = "SELECT idProducto, p.nombre, descripcion, c.nombre, precioCompra, precioVenta, tipoGuardado "
+                    + "FROM Producto as p "
+                    + "inner join Categoria as c "
+                    + "on c.idCategoria=p.idCategoria "
+                    +"WHERE (p.nombre LIKE '%"+ nombre + "%') OR (idProducto LIKE '%"+ nombre + "%')" ;
             var con = conexion.getConexion();
             var prepareStatement = con.prepareStatement(sql);
             var resultSet = prepareStatement.executeQuery();
 
             while (resultSet.next()) {
-                var p = new Producto();
-
-                p.setCodProducto(resultSet.getString("idProducto"));
-                p.setNombre(resultSet.getString("nombre"));
-                p.setDescripcion(resultSet.getString("descripcion"));
-                p.setIdCategoria(resultSet.getInt("idCategoria"));
-                p.setpCompra(resultSet.getDouble("precioCompra"));
-                p.setpVenta(resultSet.getDouble("precioVenta"));
-                p.settGuardado(resultSet.getString("tipoGuardado"));
+                var p = new Object[7];
+                p[0]=(resultSet.getString(1));
+                p[1]=(resultSet.getString(2));
+                p[2]=(resultSet.getString(3));
+                p[3]=(resultSet.getString(4));
+                p[4]=(resultSet.getDouble(5));
+                p[5]=(resultSet.getDouble(6));
+                p[6]=(resultSet.getString(7));
                 resultado.add(p);
             }
         }catch(SQLException ex){

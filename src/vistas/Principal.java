@@ -306,6 +306,7 @@ public class Principal extends javax.swing.JFrame {
         rp.jComboBox1.removeAllItems();
         rp.jComboBox1.addItem("Selecciona");
         rp.llenarComboBox();
+        rp.llenarTablaProductos();
         rp.jLabel7.setText("Producto");
         rp.btnModificar.setVisible(false);
         rp.btnRegistrar.setVisible(true);

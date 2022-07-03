@@ -5,6 +5,7 @@ public class Almacen {
     private String Nombre;
     private String ubicacion;
     private String telefono;
+    private String tAlmacen;
 
     public int getIdAlmacen() {
         return idAlmacen;
@@ -45,6 +46,5 @@ public class Almacen {
     public void settAlmacen(String tAlmacen) {
         this.tAlmacen = tAlmacen;
     }
-
-    private String tAlmacen;
+    
 }

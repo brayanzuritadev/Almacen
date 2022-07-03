@@ -39,7 +39,6 @@ public class VProducto extends javax.swing.JPanel {
         modelo.addColumn("Tipo de guardado");
         this.jTable2.setModel(modelo);
         limpiarTabla();
-        llenarTablaProductos();
     }
 
     /**
@@ -203,6 +202,12 @@ public class VProducto extends javax.swing.JPanel {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextField5KeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField5KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField5KeyTyped(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -322,24 +327,31 @@ public class VProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
+        
+    }//GEN-LAST:event_jTextField5KeyPressed
+
+    private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
+        
+    }//GEN-LAST:event_jTextField5KeyTyped
+
+    private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
         jTextField5.getText().toString();
         IProductoServicio pr = ProductoServicioFabrica.Construir();
         var productos = pr.buscarProductos(jTextField5.getText().toString());
         Object[] datos = new Object[modelo.getColumnCount()];
         limpiarTabla();
-        for (Producto item : productos) {
-            datos[0]=item.getCodProducto();
-            datos[1]=item.getNombre();
-            datos[2]=item.getDescripcion();
-            buscarCategoria(item.getIdCategoria(),"");
-            datos[3]=c.getNombre();
-            datos[4]=item.getpCompra();
-            datos[5]=item.getpVenta();
-            datos[6]=item.gettGuardado();
+        for (Object[] item : productos) {
+            datos[0]=item[0];
+            datos[1]=item[1];
+            datos[2]=item[2];
+            datos[3]=item[3];
+            datos[4]=item[4];
+            datos[5]=item[5];
+            datos[6]=item[6];
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);
-    }//GEN-LAST:event_jTextField5KeyPressed
+    }//GEN-LAST:event_jTextField5KeyReleased
     
         private void buscarCategoria(int id, String nombre) {
         
@@ -379,21 +391,21 @@ public class VProducto extends javax.swing.JPanel {
         }
     }
     
-    private void llenarTablaProductos() {
+    protected void llenarTablaProductos() {
         limpiarTabla();
         IProductoServicio ptt = ProductoServicioFabrica.Construir();
         var productos = ptt.obtenerProductos();
         Object[] datos = new Object[modelo.getColumnCount()];
-        
-        for (Producto item : productos) {
-            datos[0]=item.getCodProducto();
-            datos[1]=item.getNombre();
-            datos[2]=item.getDescripcion();
-            buscarCategoria(item.getIdCategoria(),"");
-            datos[3]=c.getNombre();
-            datos[4]=item.getpCompra();
-            datos[5]=item.getpVenta();
-            datos[6]=item.gettGuardado();
+        //System.out.println(productos.get(0)[0]);
+        for (Object[] item : productos) {
+            System.out.println("este es el valor " +item[0]);
+            datos[0]=item[0];
+            datos[1]=item[1];
+            datos[2]=item[2];
+            datos[3]=item[3];
+            datos[4]=item[4];
+            datos[5]=item[5];
+            datos[6]=item[6];
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);
