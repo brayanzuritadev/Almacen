@@ -264,10 +264,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
         ocultarVentanas();
-        this.add(a).setBounds(0, 0, 300, 800);
+        this.add(a).setBounds(0, 0, 1200, 800);
         a.setVisible(true);
-        this.add(tb).setBounds(300, 0, 900, 800);
-        tb.setVisible(true);
+        //this.add(tb).setBounds(300, 0, 900, 800);
+        //tb.setVisible(true);
 
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 

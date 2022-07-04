@@ -63,20 +63,27 @@ public class AlmacenDao implements IAlmacenDao {
 
     @Override
     public ArrayList<Almacen> obtenerAlmacen() {
-        //var resultado = new ArrayList<Almacen>
-       /* try{
+        var resultado = new ArrayList<Almacen>();
+        try{
             String sql = "SELECT * FROM Almacen";
             var con = conexion.getConexion();
             var preparedStatemt = con.prepareStatement(sql);
             var resultSet = preparedStatemt.executeQuery();
             
             while(resultSet.next()){
-                
+                var almacen = new Almacen();
+                almacen.setIdAlmacen(resultSet.getInt(1));
+                almacen.setNombre(resultSet.getString(2));
+                almacen.setUbicacion(resultSet.getString(3));
+                almacen.setTelefono(resultSet.getString(4));
+                almacen.settAlmacen(resultSet.getString(5));
+                resultado.add(almacen);
             }
         }catch(SQLException ex){
             System.out.println(ex.toString());
-        }*/
-                return null;
+        }
+        conexion.cerrarConexion();
+                return resultado;
         
     }
     
