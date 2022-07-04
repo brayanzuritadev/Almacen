@@ -16,12 +16,11 @@ import manejoProductos.almacen.Almacen;
  */
 public class AlmacenDao implements IAlmacenDao {
 
+    private IConexionServicio conexion;
+    
     public AlmacenDao(IConexionServicio conexion) {
         this.conexion = conexion;
     }
-    private IConexionServicio conexion;
-    
-    
             
     @Override
     public void guardar(Almacen almacen) {
@@ -54,6 +53,7 @@ public class AlmacenDao implements IAlmacenDao {
             ps.setString(1,almacen.getNombre());
             ps.setString(2,almacen.getUbicacion());
             ps.setString(3,almacen.getTelefono());
+            ps.setInt(4, almacen.getIdAlmacen());
             ps.execute();
         }catch(SQLException ex){
             System.out.println(ex.toString());

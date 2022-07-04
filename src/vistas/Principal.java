@@ -17,7 +17,7 @@ import manejoProductos.categoria.ICategoriaServicio;
  * @author Brayan
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     VProducto rp = new VProducto();
     Tabla tb = new Tabla();
     VCategoria c = new VCategoria();
@@ -172,7 +172,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu7.add(jMenuItem14);
 
-        jMenuItem15.setText("Agregar tipo de guardado");
+        jMenuItem15.setText("Modificar Almacen");
         jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem15ActionPerformed(evt);
@@ -266,17 +266,18 @@ public class Principal extends javax.swing.JFrame {
         ocultarVentanas();
         this.add(a).setBounds(0, 0, 1200, 800);
         a.setVisible(true);
-        //this.add(tb).setBounds(300, 0, 900, 800);
-        //tb.setVisible(true);
-
+        a.btnRegistrarAlmacen.setVisible(true);
+        a.btnModificarAlmacen.setVisible(false);
+        a.bandera = false;
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
         ocultarVentanas();
-        this.add(tg).setBounds(0, 0, 300, 800);
-        tg.setVisible(true);
-        this.add(tb).setBounds(300, 0, 900, 800);
-        tb.setVisible(true);
+        this.add(a).setBounds(0, 0, 1200, 800);
+        a.setVisible(true);
+        a.btnRegistrarAlmacen.setVisible(false);
+        a.btnModificarAlmacen.setVisible(true);
+        a.bandera = true;
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -296,7 +297,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void RCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RCProductoActionPerformed
-        
+
         ocultarVentanas();
         this.add(c).setBounds(0, 0, 1200, 800);
         c.setVisible(true);
@@ -317,7 +318,7 @@ public class Principal extends javax.swing.JFrame {
         this.add(rp).setBounds(0, 0, 1200, 800);
         rp.setVisible(true);
         rp.jComboBox1.removeAllItems();
-        
+
         rp.llenarComboBox();
         rp.llenarTablaProductos();
         rp.jLabel7.setText("Producto");
@@ -365,7 +366,7 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         ocultarVentanas();
         this.add(rp).setBounds(0, 0, 1200, 800);
-        rp.bandera=true;
+        rp.bandera = true;
         rp.setVisible(true);
         rp.llenarTablaProductos();
         rp.jLabel7.setText("Producto");
