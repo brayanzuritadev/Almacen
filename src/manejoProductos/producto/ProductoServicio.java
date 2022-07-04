@@ -21,12 +21,12 @@ public class ProductoServicio implements IProductoServicio{
     }
 
     @Override
-    public ArrayList<Object[]> obtenerProductos() {
+    public ArrayList<Producto> obtenerProductos() {
         return productoDao.obtener();
     }
 
     @Override
-    public ArrayList<Object[]> buscarProductos(String valor) {
+    public ArrayList<Producto> buscarProductos(String valor) {
         return productoDao.buscar(valor);
     }
 }

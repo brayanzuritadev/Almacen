@@ -1,5 +1,7 @@
 package manejoProductos.producto;
 
+import manejoProductos.categoria.Categoria;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -13,10 +15,18 @@ public class Producto {
     private String codProducto;
     private String nombre;
     private String Descripcion;
-    private int idCategoria;
+    private Categoria categoria;
     private double pCompra;
     private double pVenta;
     private String tGuardado;
+    
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(Categoria categoria) {
+        this.categoria = categoria;
+    }
 
     public String gettGuardado() {
         return tGuardado;
@@ -48,14 +58,6 @@ public class Producto {
 
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
-    }
-
-    public int getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(int idCategoria) {
-        this.idCategoria = idCategoria;
     }
 
     public double getpCompra() {

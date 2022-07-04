@@ -17,11 +17,11 @@ import manejoProductos.categoria.ICategoriaServicio;
  * @author Brayan
  */
 public class Principal extends javax.swing.JFrame {
-
+    
     VProducto rp = new VProducto();
     Tabla tb = new Tabla();
     VCategoria c = new VCategoria();
-    Almacen a = new Almacen();
+    VAlmacen a = new VAlmacen();
     TipoGuardado tg = new TipoGuardado();
     Entradas e = new Entradas();
     Salidas s = new Salidas();
@@ -64,7 +64,8 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        RCProducto = new javax.swing.JMenuItem();
+        MCProducto = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
@@ -107,13 +108,21 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
-        jMenuItem2.setText("Registrar/Modificar Categoria Producto");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        RCProducto.setText("Registrar Categoria Producto");
+        RCProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                RCProductoActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(RCProducto);
+
+        MCProducto.setText("Modificar Categoria Producto");
+        MCProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MCProductoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(MCProducto);
 
         jMenuBar1.add(jMenu1);
 
@@ -286,12 +295,15 @@ public class Principal extends javax.swing.JFrame {
         tb.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void RCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RCProductoActionPerformed
+        
         ocultarVentanas();
         this.add(c).setBounds(0, 0, 1200, 800);
         c.setVisible(true);
         c.llenarTabla();
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+        c.btnModificar.setVisible(false);
+        c.btnRegistrar.setVisible(true);
+    }//GEN-LAST:event_RCProductoActionPerformed
 
     public void llenarTablaCategoria(ArrayList<Categoria> categoria) {
         DefaultTableModel model = new DefaultTableModel();
@@ -300,16 +312,18 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        rp.bandera = false;
         ocultarVentanas();
         this.add(rp).setBounds(0, 0, 1200, 800);
         rp.setVisible(true);
         rp.jComboBox1.removeAllItems();
-        rp.jComboBox1.addItem("Selecciona");
+        
         rp.llenarComboBox();
         rp.llenarTablaProductos();
         rp.jLabel7.setText("Producto");
         rp.btnModificar.setVisible(false);
         rp.btnRegistrar.setVisible(true);
+        rp.limpiarCampos();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
@@ -351,13 +365,24 @@ public class Principal extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         ocultarVentanas();
         this.add(rp).setBounds(0, 0, 1200, 800);
+        rp.bandera=true;
         rp.setVisible(true);
-        c.llenarTabla();
+        rp.llenarTablaProductos();
         rp.jLabel7.setText("Producto");
         rp.btnRegistrar.setVisible(false);
         rp.btnModificar.setVisible(true);
         rp.txtCod.setEditable(false);
+        rp.limpiarCampos();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void MCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MCProductoActionPerformed
+        ocultarVentanas();
+        this.add(c).setBounds(0, 0, 1200, 800);
+        c.setVisible(true);
+        c.llenarTabla();
+        c.btnModificar.setVisible(true);
+        c.btnRegistrar.setVisible(false);
+    }//GEN-LAST:event_MCProductoActionPerformed
 
     private void ocultarVentanas() {
         rp.setVisible(false);
@@ -413,6 +438,8 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MCProducto;
+    private javax.swing.JMenuItem RCProducto;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
@@ -426,7 +453,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;

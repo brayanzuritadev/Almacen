@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import javax.swing.JOptionPane;
 import manejoProductos.categoria.CategoriaServicioFabrica;
 
 import javax.swing.table.DefaultTableModel;
@@ -44,9 +45,9 @@ public class VCategoria extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         txtCategoria = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTextField4 = new javax.swing.JTextField();
@@ -65,23 +66,23 @@ public class VCategoria extends javax.swing.JPanel {
 
         jLabel1.setText("Categoria:");
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 102));
-        jButton2.setText("Registrar Categoria");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistrar.setBackground(new java.awt.Color(255, 204, 102));
+        btnRegistrar.setText("Registrar Categoria");
+        btnRegistrar.setBorder(null);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnRegistrarActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Categoria");
 
-        jButton3.setBackground(new java.awt.Color(255, 204, 102));
-        jButton3.setText("Modificar Categoria");
-        jButton3.setBorder(null);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setBackground(new java.awt.Color(255, 204, 102));
+        btnModificar.setText("Modificar Categoria");
+        btnModificar.setBorder(null);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -97,8 +98,8 @@ public class VCategoria extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRegistrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -115,9 +116,9 @@ public class VCategoria extends javax.swing.JPanel {
                     .addComponent(jLabel1)
                     .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegistrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(509, Short.MAX_VALUE))
         );
 
@@ -186,12 +187,21 @@ public class VCategoria extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        c.setNombre(txtCategoria.getText());
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+
         c1 = CategoriaServicioFabrica.Construir();
-        c1.registrar(c);
+        var result = c1.buscarCategoria(txtCategoria.getText().trim());
+        
+        if(result.size() > 0 ){
+            if(result.get(0).getNombre().equals(txtCategoria.getText().trim())){
+            JOptionPane.showMessageDialog(null, "La categoria existe dentro la base de datos.");
+            }
+        }else{
+            c.setNombre(txtCategoria.getText().trim());
+            c1.registrar(c);
+        }
         llenarTabla();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnRegistrarActionPerformed
     
     public void llenarTabla(){
         limpiarTabla();
@@ -216,14 +226,14 @@ public class VCategoria extends javax.swing.JPanel {
         }
     }
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         ICategoriaServicio c1 = CategoriaServicioFabrica.Construir();
         
         c.setNombre(txtCategoria.getText().toString().trim());
         c1.modificar(c);
         limpiarTabla();
         llenarTabla();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         obtenerDatosTabla();
@@ -262,8 +272,8 @@ public class VCategoria extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    public javax.swing.JButton btnModificar;
+    public javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;
     protected javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

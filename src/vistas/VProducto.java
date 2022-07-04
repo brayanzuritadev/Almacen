@@ -17,17 +17,19 @@ import manejoProductos.producto.Producto;
  * @author Brayan
  */
 public class VProducto extends javax.swing.JPanel {
+
     Producto p = new Producto();
     Categoria c = new Categoria();
     DefaultTableModel modelo;
+    protected boolean bandera;
 
     /**
      * Creates new form Tipo
      */
     public VProducto() {
         initComponents();
-        this.jComboBox1.removeAllItems();
-        this.jComboBox1.addItem("Selecciona");
+        // this.jComboBox1.removeAllItems();
+
         llenarComboBox();
         modelo = new DefaultTableModel();
         modelo.addColumn("Codigo");
@@ -277,26 +279,29 @@ public class VProducto extends javax.swing.JPanel {
         p.setCodProducto(txtCod.getText().toString().trim());
         p.setNombre(txt_nombre.getText().toString().trim());
         p.setDescripcion(txtDescripcion.getText().toString().trim());
-        p.setIdCategoria(c.getId());
+        p.setCategoria(c);
         p.setpCompra(Double.parseDouble(txtPCompra.getText().toString().trim()));
         p.setpVenta(Double.parseDouble(txtPVenta.getText().toString().trim()));
         p.settGuardado(txtTGuardado.getText().toString().trim());
-        System.out.println("este es el id" + p.getIdCategoria());
         IProductoServicio p1 = ProductoServicioFabrica.Construir();
         p1.registrar(p);
 
         limpiarTabla();
         llenarTablaProductos();
+        limpiarCampos();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        buscarCategoria(0,jComboBox1.getSelectedItem().toString());
+        buscarCategoria(0, jComboBox1.getSelectedItem().toString());
         System.out.println(c.getId());
-        
-        p.setCodProducto(txtCod.getText().trim());
+
+        p.setCodProducto(txtCod.getText().toString().trim());
         p.setNombre(txt_nombre.getText().toString().trim());
         p.setDescripcion(txtDescripcion.getText().toString().trim());
-        p.setIdCategoria(c.getId());
+        buscarCategoria(0, jComboBox1.getSelectedItem().toString());
+        System.out.println("ssdsdfsdaf" + jComboBox1.getSelectedItem().toString());
+        System.out.println("dfsdfsdfsdfsdfsd" + c.getId());
+        p.setCategoria(c);
         p.setpCompra(Double.parseDouble(txtPCompra.getText().toString().trim()));
         p.setpVenta(Double.parseDouble(txtPVenta.getText().toString().trim()));
         p.settGuardado(txtTGuardado.getText().toString().trim());
@@ -305,17 +310,20 @@ public class VProducto extends javax.swing.JPanel {
 
         limpiarTabla();
         llenarTablaProductos();
+        limpiarCampos();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
-        int fila = this.jTable2.getSelectedRow();
-        txtCod.setText(jTable2.getValueAt(fila,0).toString());
-        txt_nombre.setText(jTable2.getValueAt(fila,1).toString());
-        txtDescripcion.setText(jTable2.getValueAt(fila,2).toString());
-        this.jComboBox1.setSelectedItem(jTable2.getValueAt(fila,3));
-        txtPCompra.setText(jTable2.getValueAt(fila,4).toString());
-        txtPVenta.setText(jTable2.getValueAt(fila,5).toString());
-        txtTGuardado.setText(jTable2.getValueAt(fila,6).toString());
+        if (bandera == true) {
+            int fila = this.jTable2.getSelectedRow();
+            txtCod.setText(jTable2.getValueAt(fila, 0).toString());
+            txt_nombre.setText(jTable2.getValueAt(fila, 1).toString());
+            txtDescripcion.setText(jTable2.getValueAt(fila, 2).toString());
+            this.jComboBox1.setSelectedItem(jTable2.getValueAt(fila, 3));
+            txtPCompra.setText(jTable2.getValueAt(fila, 4).toString());
+            txtPVenta.setText(jTable2.getValueAt(fila, 5).toString());
+            txtTGuardado.setText(jTable2.getValueAt(fila, 6).toString());
+        }
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void jTextField5InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextField5InputMethodTextChanged
@@ -327,11 +335,11 @@ public class VProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
-        
+
     }//GEN-LAST:event_jTextField5KeyPressed
 
     private void jTextField5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyTyped
-        
+
     }//GEN-LAST:event_jTextField5KeyTyped
 
     private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
@@ -340,24 +348,25 @@ public class VProducto extends javax.swing.JPanel {
         var productos = pr.buscarProductos(jTextField5.getText().toString());
         Object[] datos = new Object[modelo.getColumnCount()];
         limpiarTabla();
-        for (Object[] item : productos) {
-            datos[0]=item[0];
-            datos[1]=item[1];
-            datos[2]=item[2];
-            datos[3]=item[3];
-            datos[4]=item[4];
-            datos[5]=item[5];
-            datos[6]=item[6];
+        for (Producto item : productos) {
+            datos[0] = item.getCodProducto();
+            datos[1] = item.getNombre();
+            datos[2] = item.getDescripcion();
+            datos[3] = item.getCategoria().getNombre();
+            datos[4] = item.getpCompra();
+            datos[5] = item.getpVenta();
+            datos[6] = item.gettGuardado();
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);
-    }//GEN-LAST:event_jTextField5KeyReleased
-    
-        private void buscarCategoria(int id, String nombre) {
         
+    }//GEN-LAST:event_jTextField5KeyReleased
+
+    private void buscarCategoria(int id, String nombre) {
+
         ICategoriaServicio c1 = CategoriaServicioFabrica.Construir();
         var categorias = c1.obtenerCategorias();
-            
+
         if (nombre != "") {
             for (int i = 0; i < categorias.size(); i++) {
                 if (nombre.equals(categorias.get(i).getNombre())) {
@@ -365,47 +374,60 @@ public class VProducto extends javax.swing.JPanel {
                     System.out.println(categorias.get(i).getId());
                 }
             }
-        } 
-        
-        if(id!=0) {
+        }
+
+        if (id != 0) {
             for (int i = 0; i < categorias.size(); i++) {
                 if (id == categorias.get(i).getId()) {
-                    c.setNombre(categorias.get(i).getNombre());                }
+                    c.setNombre(categorias.get(i).getNombre());
+                }
             }
         }
     }
 
     public void llenarComboBox() {
+        jComboBox1.removeAllItems();
+        this.jComboBox1.addItem("Selecciona");
         ICategoriaServicio c1 = CategoriaServicioFabrica.Construir();
         var categorias = c1.obtenerCategorias();
         for (int i = 0; i < categorias.size(); i++) {
             jComboBox1.addItem(categorias.get(i).getNombre());
         }
     }
-    
-    private void limpiarTabla(){
-        System.out.println(jTable2.getRowCount());
+
+    private void limpiarTabla() {
         for (int i = 0; i < this.jTable2.getRowCount(); i++) {
-        modelo.removeRow(i);
-        i-=1;
+            modelo.removeRow(i);
+            i -= 1;
         }
     }
-    
+
+    public void limpiarCampos() {
+        txtCod.setText("");
+        txt_nombre.setText("");
+        txtDescripcion.setText("");
+        llenarComboBox();
+        txtPCompra.setText("");
+        txtPVenta.setText("");
+        txtTGuardado.setText("");
+
+    }
+
     protected void llenarTablaProductos() {
         limpiarTabla();
         IProductoServicio ptt = ProductoServicioFabrica.Construir();
         var productos = ptt.obtenerProductos();
         Object[] datos = new Object[modelo.getColumnCount()];
-        //System.out.println(productos.get(0)[0]);
-        for (Object[] item : productos) {
-            System.out.println("este es el valor " +item[0]);
-            datos[0]=item[0];
-            datos[1]=item[1];
-            datos[2]=item[2];
-            datos[3]=item[3];
-            datos[4]=item[4];
-            datos[5]=item[5];
-            datos[6]=item[6];
+
+        for (Producto item : productos) {
+
+            datos[0] = item.getCodProducto();
+            datos[1] = item.getNombre();
+            datos[2] = item.getDescripcion();
+            datos[3] = item.getCategoria().getNombre();
+            datos[4] = item.getpCompra();
+            datos[5] = item.getpVenta();
+            datos[6] = item.gettGuardado();
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);

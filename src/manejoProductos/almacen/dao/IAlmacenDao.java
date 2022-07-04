@@ -2,17 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package manejoProductos.producto;
+package manejoProductos.almacen.dao;
 
 import java.util.ArrayList;
+import manejoProductos.almacen.Almacen;
+
 
 /**
  *
  * @author Brayan
  */
-public interface IProductoServicio {
-    public void registrar(Producto p);
-    public void modificar(Producto p);
-    public ArrayList<Producto> obtenerProductos();
-    public ArrayList<Producto> buscarProductos(String valor);
+public interface IAlmacenDao {
+    public void guardar(Almacen almacen);
+    public void modificar(Almacen almacen);
+    public ArrayList<Almacen> obtenerAlmacen();
 }

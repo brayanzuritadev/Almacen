@@ -1,18 +1,30 @@
-package manejoProductos.almacen;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package manejoProductos.almacen.dao;
 
-import conexionDB.ConexionSQLServer;
-
+import conexionDB.ConexionServicioFabrica;
+import conexionDB.IConexionServicio;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import manejoProductos.almacen.Almacen;
 
-public class ServicioAlmacen implements IAlmacenServicio{
-    private ConexionSQLServer conexion;
+/**
+ *
+ * @author Brayan
+ */
+public class AlmacenDao implements IAlmacenDao {
 
-    public ServicioAlmacen(ConexionSQLServer conexion) {
+    public AlmacenDao(IConexionServicio conexion) {
         this.conexion = conexion;
     }
-
+    private IConexionServicio conexion;
+    
+    
+            
     @Override
-    public void registrar(Almacen almacen) {
+    public void guardar(Almacen almacen) {
         try{
             String sql="INSERT INTO Almacen (nombre,ubicacion,telefono,tipoAlmacen)"
                     + "VALUES(?,?,?,?)";
@@ -48,4 +60,24 @@ public class ServicioAlmacen implements IAlmacenServicio{
         }
         conexion.cerrarConexion();
     }
+
+    @Override
+    public ArrayList<Almacen> obtenerAlmacen() {
+        //var resultado = new ArrayList<Almacen>
+       /* try{
+            String sql = "SELECT * FROM Almacen";
+            var con = conexion.getConexion();
+            var preparedStatemt = con.prepareStatement(sql);
+            var resultSet = preparedStatemt.executeQuery();
+            
+            while(resultSet.next()){
+                
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.toString());
+        }*/
+                return null;
+        
+    }
+    
 }
