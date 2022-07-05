@@ -197,6 +197,7 @@ public class VAlmacen extends javax.swing.JPanel {
 
         almacenf.modificar(almacen);
         llenarTablaAlmacen();
+        limpiarCampos();
     }//GEN-LAST:event_btnModificarAlmacenActionPerformed
 
     private void btnRegistrarAlmacenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarAlmacenActionPerformed
@@ -209,6 +210,7 @@ public class VAlmacen extends javax.swing.JPanel {
 
         almacenf.registrar(almacen);
         llenarTablaAlmacen();
+        limpiarCampos();
     }//GEN-LAST:event_btnRegistrarAlmacenActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -251,6 +253,12 @@ public class VAlmacen extends javax.swing.JPanel {
         txtUbicacion.setText(jTable1.getValueAt(fila, 2).toString());
         txtTelefono.setText(jTable1.getValueAt(fila, 3).toString());
         //txtNombre.setText(jTable1.getValueAt(fila,1).toString());
+    }
+    
+    public void limpiarCampos(){
+        txtNombre.setText("");
+        txtUbicacion.setText("");
+        txtTelefono.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnModificarAlmacen;

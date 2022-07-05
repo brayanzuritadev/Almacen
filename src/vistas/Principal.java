@@ -26,7 +26,7 @@ public class Principal extends javax.swing.JFrame {
     Entradas e = new Entradas();
     Salidas s = new Salidas();
     VProducto ts = new VProducto();
-    Usuario u = new Usuario();
+    VUsuario u = new VUsuario();
     Proveedor p = new Proveedor();
     Alerta al = new Alerta();
     InformeEntrada ie = new InformeEntrada();
@@ -46,6 +46,7 @@ public class Principal extends javax.swing.JFrame {
         this.add(al).setBounds(0, 0, 1200, 800);
         al.setVisible(true);
         al.jLabel1.setText("Productos en alerta");
+        this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vistas/imagenes/cajas.png"));
         setIconImage(iconoPropio);
@@ -60,6 +61,9 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -71,19 +75,28 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem16 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        MenuUsuario = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem14 = new javax.swing.JMenuItem();
+        jMenuItem15 = new javax.swing.JMenuItem();
+
+        jMenuItem2.setText("jMenuItem2");
+
+        jMenuItem9.setText("jMenuItem9");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setResizable(false);
+
+        jButton1.setText("jButton1");
 
         jMenuBar1.setBackground(new java.awt.Color(255, 204, 51));
         jMenuBar1.setBorder(null);
@@ -162,25 +175,41 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        jMenu7.setText("Almacenes");
-
-        jMenuItem14.setText("Registrar Almacen");
-        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem14ActionPerformed(evt);
+        jMenu2.setText("Salir");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
             }
         });
-        jMenu7.add(jMenuItem14);
+        jMenuBar1.add(jMenu2);
 
-        jMenuItem15.setText("Modificar Almacen");
-        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
+        MenuUsuario.setText("Usuarios");
+
+        jMenuItem6.setText("Registrar Usuario");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem15ActionPerformed(evt);
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem15);
+        MenuUsuario.add(jMenuItem6);
 
-        jMenuBar1.add(jMenu7);
+        jMenuItem13.setText("Modificar/Eliminar Usuario");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
+            }
+        });
+        MenuUsuario.add(jMenuItem13);
+
+        jMenuItem8.setText("Login");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        MenuUsuario.add(jMenuItem8);
+
+        jMenuBar1.add(MenuUsuario);
 
         jMenu5.setText("Consultas");
 
@@ -210,25 +239,25 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
-        jMenu6.setText("Usuarios");
+        jMenu7.setText("Almacenes");
 
-        jMenuItem6.setText("Registrar/Eliminar/Modificar Usuario");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem14.setText("Registrar Almacen");
+        jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                jMenuItem14ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem6);
+        jMenu7.add(jMenuItem14);
 
-        jMenuItem8.setText("Login");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem15.setText("Modificar Almacen");
+        jMenuItem15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jMenuItem15ActionPerformed(evt);
             }
         });
-        jMenu6.add(jMenuItem8);
+        jMenu7.add(jMenuItem15);
 
-        jMenuBar1.add(jMenu6);
+        jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
 
@@ -240,7 +269,7 @@ public class Principal extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 916, Short.MAX_VALUE)
+            .addGap(0, 917, Short.MAX_VALUE)
         );
 
         pack();
@@ -248,10 +277,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         ocultarVentanas();
-        this.add(e).setBounds(0, 0, 300, 800);
-        this.add(tb).setBounds(300, 0, 900, 800);
+        this.add(e).setBounds(0, 0, 1200, 800);
         e.setVisible(true);
-        tb.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
@@ -269,6 +296,7 @@ public class Principal extends javax.swing.JFrame {
         a.btnRegistrarAlmacen.setVisible(true);
         a.btnModificarAlmacen.setVisible(false);
         a.bandera = false;
+        a.limpiarCampos();
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jMenuItem15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem15ActionPerformed
@@ -278,6 +306,7 @@ public class Principal extends javax.swing.JFrame {
         a.btnRegistrarAlmacen.setVisible(false);
         a.btnModificarAlmacen.setVisible(true);
         a.bandera = true;
+        a.limpiarCampos();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -290,10 +319,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         ocultarVentanas();
-        this.add(u).setBounds(0, 0, 300, 800);
+        this.add(u).setBounds(0, 0, 1200, 800);
         u.setVisible(true);
-        this.add(tb).setBounds(300, 0, 900, 800);
-        tb.setVisible(true);
+        u.banderaUsuario = false;
+        u.btnRegistrar.setVisible(true);
+        u.btnActualizar.setVisible(false);
+        u.btnEliminar.setVisible(false);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void RCProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RCProductoActionPerformed
@@ -385,6 +416,20 @@ public class Principal extends javax.swing.JFrame {
         c.btnRegistrar.setVisible(false);
     }//GEN-LAST:event_MCProductoActionPerformed
 
+    private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        System.exit( 0 );
+    }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
+        ocultarVentanas();
+        this.add(u).setBounds(0, 0, 1200, 800);
+        u.setVisible(true);
+        u.banderaUsuario = true;
+        u.btnRegistrar.setVisible(false);
+        u.btnActualizar.setVisible(true);
+        u.btnEliminar.setVisible(true);
+    }//GEN-LAST:event_jMenuItem13ActionPerformed
+
     private void ocultarVentanas() {
         rp.setVisible(false);
         tb.setVisible(false);
@@ -440,25 +485,30 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MCProducto;
+    private javax.swing.JMenu MenuUsuario;
     private javax.swing.JMenuItem RCProducto;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }

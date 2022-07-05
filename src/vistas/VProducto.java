@@ -71,6 +71,8 @@ public class VProducto extends javax.swing.JPanel {
         txtTGuardado = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        txtTGuardado1 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -154,7 +156,7 @@ public class VProducto extends javax.swing.JPanel {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 388, 241, 30));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 241, 30));
 
         btnModificar.setBackground(new java.awt.Color(255, 204, 102));
         btnModificar.setText("Modificar");
@@ -164,7 +166,13 @@ public class VProducto extends javax.swing.JPanel {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 241, 30));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 241, 30));
+
+        txtTGuardado1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.add(txtTGuardado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 153, -1));
+
+        jLabel11.setText("Prioridad:");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 88, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(900, 800));
@@ -440,6 +448,7 @@ public class VProducto extends javax.swing.JPanel {
     public javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     protected javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -457,6 +466,7 @@ public class VProducto extends javax.swing.JPanel {
     private javax.swing.JTextField txtPCompra;
     private javax.swing.JTextField txtPVenta;
     private javax.swing.JTextField txtTGuardado;
+    private javax.swing.JTextField txtTGuardado1;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }

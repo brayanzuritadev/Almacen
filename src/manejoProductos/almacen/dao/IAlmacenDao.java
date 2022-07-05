@@ -16,4 +16,5 @@ public interface IAlmacenDao {
     public void guardar(Almacen almacen);
     public void modificar(Almacen almacen);
     public ArrayList<Almacen> obtenerAlmacen();
+    public ArrayList<Almacen> buscarAlmacen(String nombre);
 }

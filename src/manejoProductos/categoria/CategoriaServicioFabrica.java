@@ -13,7 +13,7 @@ import manejoProductos.categoria.dao.CategoriaDaoFabrica;
  */
 public class CategoriaServicioFabrica {
     public static ICategoriaServicio Construir(){
-        var categoriaDao = CategoriaDaoFabrica.construir();
+        //var categoriaDao = CategoriaDaoFabrica.construir();
         return new CategoriaServicio();
     }
 }
