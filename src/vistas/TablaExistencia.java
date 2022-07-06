@@ -121,7 +121,7 @@ public class TablaExistencia extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public void llenarTablaExistencia(){
-        //limpiarTabla();
+        limpiarTabla();
         IServicioExistencia ptt = ServicioExistenciaFabrica.construir();
         var productos = ptt.obteerExistencia();
         Object[] datos = new Object[modelo.getColumnCount()];
@@ -145,6 +145,12 @@ public class TablaExistencia extends javax.swing.JPanel {
         this.jTable1.setModel(modelo);
     }
     
+    private void limpiarTabla() {
+        for (int i = 0; i < this.jTable1.getRowCount(); i++) {
+            modelo.removeRow(i);
+            i -= 1;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;

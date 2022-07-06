@@ -36,7 +36,6 @@ public class Principal extends javax.swing.JFrame {
     Proveedor p = new Proveedor();
     InformeEntrada ie = new InformeEntrada();
     InformeSalidas is = new InformeSalidas();
-    VExistencia ex = new VExistencia();
     TablaExistencia te =new TablaExistencia();
     ControlIngreso control;
 
@@ -50,9 +49,9 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.setSize(1200, 100);
 
         ocultarVentanas();
-        this.add(ex).setBounds(0, 0, 1200, 800);
-        ex.setVisible(true);
-        
+        this.add(te).setBounds(0, 0, 1200, 800);
+        //ex.setVisible(true);
+        te.setVisible(true);
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vistas/imagenes/cajas.png"));
@@ -370,6 +369,7 @@ public class Principal extends javax.swing.JFrame {
         ocultarVentanas();
         this.add(te).setBounds(0, 0, 1200, 800);
         te.setVisible(true);
+        te.llenarTablaExistencia();
         //ex.setVisible(true);
         //ex.jLabel1.setText("Existencias");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
@@ -442,6 +442,8 @@ public class Principal extends javax.swing.JFrame {
             g.actualizarGraficos();
         }
         g.setVisible(true);
+        //this.hide();
+        
         
         
     }//GEN-LAST:event_jMenu6MouseClicked
@@ -461,7 +463,6 @@ public class Principal extends javax.swing.JFrame {
         tg.setVisible(false);
         ts.setVisible(false);
         u.setVisible(false);
-        ex.setVisible(false);
         is.setVisible(false);
         ie.setVisible(false);
         te.setVisible(false);
