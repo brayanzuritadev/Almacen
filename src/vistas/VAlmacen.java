@@ -11,6 +11,12 @@ import manejoProductos.almacen.IAlmacenServicio;
 import manejoProductos.categoria.Categoria;
 import manejoProductos.categoria.CategoriaServicioFabrica;
 import manejoProductos.categoria.ICategoriaServicio;
+import manejoProductos.existencia.Existencia;
+import manejoProductos.existencia.IServicioExistencia;
+import manejoProductos.existencia.ServicioExistenciaFabrica;
+import manejoProductos.producto.IProductoServicio;
+import manejoProductos.producto.Producto;
+import manejoProductos.producto.ProductoServicioFabrica;
 
 /**
  *
@@ -207,8 +213,9 @@ public class VAlmacen extends javax.swing.JPanel {
         almacen.setNombre(txtNombre.getText().toString().trim());
         almacen.setUbicacion(txtUbicacion.getText().toString().trim());
         almacen.setTelefono(txtTelefono.getText().toString().trim());
-
+        
         almacenf.registrar(almacen);
+        registrarExistencia(almacen,txtNombre.getText().toString().trim());
         llenarTablaAlmacen();
         limpiarCampos();
     }//GEN-LAST:event_btnRegistrarAlmacenActionPerformed
@@ -259,6 +266,17 @@ public class VAlmacen extends javax.swing.JPanel {
         txtNombre.setText("");
         txtUbicacion.setText("");
         txtTelefono.setText("");
+    }
+    
+    public void registrarExistencia(Almacen a,String nombre){
+        IServicioExistencia ise = ServicioExistenciaFabrica.construir();
+        IProductoServicio as = ProductoServicioFabrica.Construir();
+        IAlmacenServicio ass= AlmacenServicioFabrica.construir();
+        Existencia e = new Existencia();
+        e.setAlmacen(a);
+        e.setAlmacen(ass.buscarAlmacen(nombre).get(0));
+        e.setCantidad(0);
+        ise.registrarExistenciaAlmacen(e,as.obtenerProductos());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnModificarAlmacen;

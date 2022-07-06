@@ -10,4 +10,5 @@ package manejoProductos.validador;
  */
 public interface IServicioValidador {
     public boolean buscarUsuariologin(String email, String password);
+    public boolean buscarAlmacenUsuario(int _idalmacen);
 }

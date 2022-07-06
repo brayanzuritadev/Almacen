@@ -1,6 +1,7 @@
 package manejoProductos.usuario;
 
 import java.util.ArrayList;
+import manejoProductos.almacen.Almacen;
 import manejoProductos.usuario.dao.IUsuarioDao;
 import manejoProductos.usuario.dao.UsuarioDao;
 import manejoProductos.usuario.dao.UsuarioDaoFabrica;
@@ -23,4 +24,5 @@ public class UsuarioServicio implements IUsuarioServicio {
     public ArrayList<Usuario> obtenerUsuarios() {
         return usuarioDao.obtenerUsuarios();
     }
+
 }

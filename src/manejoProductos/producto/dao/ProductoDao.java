@@ -119,6 +119,7 @@ public class ProductoDao implements IProductoDao {
                     + "WHERE (p.nombre LIKE '%" + nombre + "%') "
                     + "OR (idProducto LIKE '%" + nombre + "%') "
                     + "OR (c.nombre LIKE '%" + nombre + "%')";
+                    
             var con = conexion.getConexion();
             var prepareStatement = con.prepareStatement(sql);
             var resultSet = prepareStatement.executeQuery();

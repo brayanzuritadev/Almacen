@@ -7,6 +7,8 @@ package manejoProductos.transaccion.dao;
 import conexionDB.IConexionServicio;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import manejoProductos.existencia.IServicioExistencia;
+import manejoProductos.existencia.ServicioExistenciaFabrica;
 import manejoProductos.transaccion.Transaccion;
 
 /**
@@ -24,8 +26,8 @@ public class TransaccionDao implements ITransaccionDao {
     public void registrarTransaccion(Transaccion t) {
         try{
             
-            String sql = "INSERT INTO Usuario(nombre,direccion,ci,telefono,password,email,idAlmacen)" +
-                    " VALUES(?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO Transaccion(idAlmacen,idProducto,idUsuario,cantidad,totalTrasaccion,tTransaccion)" +
+                    " VALUES(?,?,?,?,?,?)";
             var con = conexion.getConexion();
             var ps = con.prepareStatement(sql);
             ps.setInt(1,t.getAlmacen().getIdAlmacen());
@@ -38,7 +40,10 @@ public class TransaccionDao implements ITransaccionDao {
         }catch(SQLException ex){
             System.out.println(ex.toString());
         }
+        
         conexion.cerrarConexion();
+        
+        
     }
 
     @Override
@@ -50,5 +55,6 @@ public class TransaccionDao implements ITransaccionDao {
     public ArrayList<Transaccion> buscarTransaccion(String valor, String tipo) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
     
 }

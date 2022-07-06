@@ -24,4 +24,9 @@ public class AlmacenServicio implements IAlmacenServicio{
     public ArrayList<Almacen> obtenerAlmacenes() {
         return almacenDao.obtenerAlmacen();
     }
+
+    @Override
+    public ArrayList<Almacen> buscarAlmacen(String nombre) {
+        return almacenDao.buscarAlmacen(nombre);
+    }
 }

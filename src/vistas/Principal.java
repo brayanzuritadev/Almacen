@@ -28,10 +28,10 @@ public class Principal extends javax.swing.JFrame {
     VProducto ts = new VProducto();
     VUsuario u = new VUsuario();
     Proveedor p = new Proveedor();
-    Alerta al = new Alerta();
     InformeEntrada ie = new InformeEntrada();
     InformeSalidas is = new InformeSalidas();
-    Existencia ex = new Existencia();
+    VExistencia ex = new VExistencia();
+    TablaExistencia te =new TablaExistencia();
 
     /**
      * Creates new form Principal
@@ -43,9 +43,9 @@ public class Principal extends javax.swing.JFrame {
         jMenuBar1.setSize(1200, 100);
 
         ocultarVentanas();
-        this.add(al).setBounds(0, 0, 1200, 800);
-        al.setVisible(true);
-        al.jLabel1.setText("Productos en alerta");
+        this.add(ex).setBounds(0, 0, 1200, 800);
+        ex.setVisible(true);
+        
         this.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vistas/imagenes/cajas.png"));
@@ -73,9 +73,6 @@ public class Principal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
         MenuUsuario = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
@@ -87,6 +84,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -157,31 +155,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu4.add(jMenuItem7);
 
-        jMenuItem10.setText("Agregar Proveedor");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem10);
-
-        jMenuItem16.setText("Agregar tipo salida");
-        jMenuItem16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem16ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem16);
-
         jMenuBar1.add(jMenu4);
-
-        jMenu2.setText("Salir");
-        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu2MouseClicked(evt);
-            }
-        });
-        jMenuBar1.add(jMenu2);
 
         MenuUsuario.setText("Usuarios");
 
@@ -259,6 +233,14 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu2.setText("Salir");
+        jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu2MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu2);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -283,9 +265,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         ocultarVentanas();
-        this.add(s).setBounds(0, 0, 300, 800);
-        this.add(tb).setBounds(300, 0, 900, 800);
-        tb.setVisible(true);
+        this.add(s).setBounds(0, 0, 1200, 800);
         s.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
@@ -308,14 +288,6 @@ public class Principal extends javax.swing.JFrame {
         a.bandera = true;
         a.limpiarCampos();
     }//GEN-LAST:event_jMenuItem15ActionPerformed
-
-    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        ocultarVentanas();
-        this.add(p).setBounds(0, 0, 300, 800);
-        p.setVisible(true);
-        this.add(tb).setBounds(300, 0, 900, 800);
-        tb.setVisible(true);
-    }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         ocultarVentanas();
@@ -358,14 +330,6 @@ public class Principal extends javax.swing.JFrame {
         rp.limpiarCampos();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem16ActionPerformed
-        ocultarVentanas();
-        this.add(tb).setBounds(300, 0, 900, 800);
-        this.add(ts).setBounds(0, 0, 300, 800);
-        tb.setVisible(true);
-        ts.setVisible(true);
-    }//GEN-LAST:event_jMenuItem16ActionPerformed
-
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         ocultarVentanas();
         Login l = new Login();
@@ -375,9 +339,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         ocultarVentanas();
-        this.add(ex).setBounds(0, 0, 1200, 800);
-        ex.setVisible(true);
-        ex.jLabel1.setText("Existencias");
+        this.add(te).setBounds(0, 0, 1200, 800);
+        te.setVisible(true);
+        //ex.setVisible(true);
+        //ex.jLabel1.setText("Existencias");
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -441,10 +406,10 @@ public class Principal extends javax.swing.JFrame {
         tg.setVisible(false);
         ts.setVisible(false);
         u.setVisible(false);
-        al.setVisible(false);
         ex.setVisible(false);
         is.setVisible(false);
         ie.setVisible(false);
+        te.setVisible(false);
     }
 
     /**
@@ -495,13 +460,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem14;
     private javax.swing.JMenuItem jMenuItem15;
-    private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

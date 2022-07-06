@@ -21,7 +21,7 @@ public class ConexionSQLLite implements IConexionServicio{
     public Connection getConexion() {
         try{
             Class.forName("org.sqlite.JDBC");
-            String url="jdbc:sqlite:C:/Users/Brayan/Desktop/AlmacenDB";
+            String url="jdbc:sqlite:AlmacenDB";
             conexion = DriverManager.getConnection(url);
         if(conexion!=null){
             System.out.println("Estamos conectados");

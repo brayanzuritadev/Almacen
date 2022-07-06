@@ -4,7 +4,12 @@
  */
 package vistas;
 
+import manejoProductos.almacen.AlmacenServicioFabrica;
+import manejoProductos.almacen.IAlmacenServicio;
 import manejoProductos.categoria.CategoriaServicioFabrica;
+import manejoProductos.existencia.Existencia;
+import manejoProductos.existencia.IServicioExistencia;
+import manejoProductos.existencia.ServicioExistenciaFabrica;
 import manejoProductos.producto.ProductoServicioFabrica;
 import javax.swing.table.DefaultTableModel;
 import manejoProductos.categoria.Categoria;
@@ -294,6 +299,8 @@ public class VProducto extends javax.swing.JPanel {
         IProductoServicio p1 = ProductoServicioFabrica.Construir();
         p1.registrar(p);
 
+        registrarExistencia(p);
+
         limpiarTabla();
         llenarTablaProductos();
         limpiarCampos();
@@ -440,6 +447,15 @@ public class VProducto extends javax.swing.JPanel {
         }
         this.jTable2.setModel(modelo);
 
+    }
+
+    public void registrarExistencia(Producto p){
+        IServicioExistencia ise = ServicioExistenciaFabrica.construir();
+        IAlmacenServicio as = AlmacenServicioFabrica.construir();
+        Existencia e = new Existencia();
+        e.setProducto(p);
+        e.setCantidad(0);
+        ise.registrarExistencia(e,as.obtenerAlmacenes());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

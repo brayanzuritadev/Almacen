@@ -1,11 +1,15 @@
 package manejoProductos.transaccion;
 
 import java.util.ArrayList;
+import manejoProductos.transaccion.dao.ITransaccionDao;
+import manejoProductos.transaccion.dao.TransaccionDaoFabrica;
 
 public class ServicioTransaccion implements IServicioTransaccion {
+    
+    private ITransaccionDao atd = TransaccionDaoFabrica.construir();
     @Override
     public void registrarTransaccion(Transaccion t) {
-        
+        atd.registrarTransaccion(t);
     }
 
     @Override

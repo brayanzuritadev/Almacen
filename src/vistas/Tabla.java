@@ -7,6 +7,9 @@ package vistas;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import manejoProductos.categoria.Categoria;
+import manejoProductos.producto.IProductoServicio;
+import manejoProductos.producto.Producto;
+import manejoProductos.producto.ProductoServicioFabrica;
 
 /**
  *
@@ -99,8 +102,24 @@ public class Tabla extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void llenarTablaCategoria(ArrayList<Categoria> cat){
-        
+    public void llenarTablaExistencia(ArrayList<Categoria> cat){
+        //limpiarTabla();
+        /*IProductoServicio ptt = ProductoServicioFabrica.Construir();
+        var productos = ptt.obtenerProductos();
+        Object[] datos = new Object[modelo.getColumnCount()];
+
+        for (Producto item : productos) {
+
+            datos[0] = item.getCodProducto();
+            datos[1] = item.getNombre();
+            datos[2] = item.getDescripcion();
+            datos[3] = item.getCategoria().getNombre();
+            datos[4] = item.getpCompra();
+            datos[5] = item.getpVenta();
+            datos[6] = item.gettGuardado();
+            modelo.addRow(datos);
+        }
+        this.jTable2.setModel(modelo);*/
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
