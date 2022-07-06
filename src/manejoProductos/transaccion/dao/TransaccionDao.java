@@ -7,8 +7,12 @@ package manejoProductos.transaccion.dao;
 import conexionDB.IConexionServicio;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import manejoProductos.almacen.Almacen;
+import manejoProductos.categoria.Categoria;
+import manejoProductos.existencia.Existencia;
 import manejoProductos.existencia.IServicioExistencia;
 import manejoProductos.existencia.ServicioExistenciaFabrica;
+import manejoProductos.producto.Producto;
 import manejoProductos.transaccion.Transaccion;
 
 /**
@@ -48,7 +52,37 @@ public class TransaccionDao implements ITransaccionDao {
 
     @Override
     public ArrayList<Transaccion> obtenerTransaccion(String tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        var resultado = new ArrayList<Transaccion>();
+        try {
+                System.out.println("estamos aqui nueva");
+                String sql = "Select cantidad, c.nombre  from Transaccion as t  "
+                        + "inner join Producto as p "
+                        + "on p.idProducto=t.idProducto "
+                        + "inner join Categoria as c "
+                        + "on c.idCategoria =p.IdCategoria "
+                        + "Where tTransaccion ="+ tipo;
+                        
+            var con = conexion.getConexion();
+            var prepareStatement = con.prepareStatement(sql);
+            var resultSet = prepareStatement.executeQuery();
+
+            while (resultSet.next()) {
+                var p = new Producto();
+                var t = new Transaccion();
+                var c = new Categoria();
+                
+                t.setCantidad(resultSet.getInt(1));
+                c.setNombre(resultSet.getString(2));
+                p.setCategoria(c);
+                t.setProdcuto(p);
+                resultado.add(t);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        conexion.cerrarConexion();
+
+        return resultado;
     }
 
     @Override

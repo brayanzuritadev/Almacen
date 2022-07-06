@@ -14,7 +14,7 @@ public class ServicioTransaccion implements IServicioTransaccion {
 
     @Override
     public ArrayList<Transaccion> obtener(String Tipo) {
-        return null;
+        return atd.obtenerTransaccion(Tipo);
     }
 
     @Override

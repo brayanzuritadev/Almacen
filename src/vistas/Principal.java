@@ -4,6 +4,8 @@
  */
 package vistas;
 
+import Estadistica.src.estadistica.Grafico;
+import control.tiempo.usuario.ControlIngreso;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -11,6 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import manejoProductos.categoria.Categoria;
 import manejoProductos.categoria.CategoriaServicioFabrica;
 import manejoProductos.categoria.ICategoriaServicio;
+import manejoProductos.transaccion.IServicioTransaccion;
+import manejoProductos.transaccion.ServicioTransaccionFabrica;
+import manejoProductos.transaccion.Transaccion;
+import manejoProductos.validador.Validador;
 
 /**
  *
@@ -32,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
     InformeSalidas is = new InformeSalidas();
     VExistencia ex = new VExistencia();
     TablaExistencia te =new TablaExistencia();
+    ControlIngreso control;
 
     /**
      * Creates new form Principal
@@ -50,6 +57,9 @@ public class Principal extends javax.swing.JFrame {
 
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vistas/imagenes/cajas.png"));
         setIconImage(iconoPropio);
+        control = new ControlIngreso();
+        control.inicio(Validador.getUsuario().getNombre());
+
     }
 
     /**
@@ -84,6 +94,7 @@ public class Principal extends javax.swing.JFrame {
         jMenu7 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
 
         jMenuItem2.setText("jMenuItem2");
@@ -233,6 +244,19 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
+        jMenu6.setText("Estadisticas");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
+        jMenu6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenu6KeyPressed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu6);
+
         jMenu2.setText("Salir");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -259,14 +283,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         ocultarVentanas();
+        
         this.add(e).setBounds(0, 0, 1200, 800);
         e.setVisible(true);
+        e.llenarTablaProductos();
+        
+        
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         ocultarVentanas();
         this.add(s).setBounds(0, 0, 1200, 800);
         s.setVisible(true);
+        s.llenarTablaProductos();
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -381,8 +410,14 @@ public class Principal extends javax.swing.JFrame {
         c.btnRegistrar.setVisible(false);
     }//GEN-LAST:event_MCProductoActionPerformed
 
+    
+    
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
+        
+        control.fin();
+        
         System.exit( 0 );
+        
     }//GEN-LAST:event_jMenu2MouseClicked
 
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
@@ -394,6 +429,26 @@ public class Principal extends javax.swing.JFrame {
         u.btnActualizar.setVisible(true);
         u.btnEliminar.setVisible(true);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+        ocultarVentanas();
+        Grafico g = new Grafico();
+        IServicioTransaccion e = ServicioTransaccionFabrica.construir();
+        var resultado = e.obtener("'Entrada'");
+        System.out.println(resultado.size()+"este es su tamaño");
+        for(Transaccion item : resultado){
+            g.cargarCategoriaLista(item.getCantidad(), item.getProdcuto().getCategoria().getNombre());
+            g.cargarDatos();
+            g.actualizarGraficos();
+        }
+        g.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jMenu6KeyPressed
+        
+    }//GEN-LAST:event_jMenu6KeyPressed
 
     private void ocultarVentanas() {
         rp.setVisible(false);
@@ -457,6 +512,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

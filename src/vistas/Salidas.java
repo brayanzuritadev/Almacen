@@ -19,6 +19,7 @@ import manejoProductos.transaccion.ServicioTransaccionFabrica;
 import manejoProductos.transaccion.Transaccion;
 import manejoProductos.usuario.Usuario;
 import manejoProductos.validador.Validador;
+import paquete.segundo.parcial.Imprimir;
 
 /**
  *
@@ -298,7 +299,10 @@ public class Salidas extends javax.swing.JPanel {
         ist.registrarTransaccion(t);
 
         actualizarExistencia(t.getCantidad());
-
+        Imprimir i = new Imprimir();
+        i.dibujarReporte(txtCod.getText().toString().trim(),txt_nombre.getText().toString(),
+                jComboBox1.getSelectedItem().toString(),txtPCompra.getText().toString(),txtPVenta.getText().toString(),
+                ""+a.getIdAlmacen(),txtDescripcion.getText().toString());
         limpiarTabla();
         llenarTablaProductos();
         limpiarCampos();
