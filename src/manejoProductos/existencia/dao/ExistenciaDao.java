@@ -24,7 +24,7 @@ public class ExistenciaDao implements IExistenciaDao{
         var resultado = new ArrayList<Existencia>();
         try {
                 System.out.println("estamos aqui nueva");
-                String sql = "Select a.nombre, a.tipoalmacen, p.idProducto, p.nombre, p.descripcion, c.nombre, p.precioCompra, p.precioVenta, p.tipoguardado, e.ubicacion, e.cantidad  from Existencia as e "
+                String sql = "Select a.nombre, a.tipoalmacen, p.idProducto, p.nombre, p.descripcion, c.nombre, p.precioCompra, p.precioVenta, p.tipoguardado, e.ubicacion, e.cantidad, a.idAlmacen from Existencia as e "
                         + "inner join Almacen as a "
                         + "on a.idAlmacen=e.idAlmacen "
                         + "inner join Producto as p "
@@ -52,6 +52,7 @@ public class ExistenciaDao implements IExistenciaDao{
                 p.settGuardado(resultSet.getString(9));
                 e.setUbicacion(resultSet.getString(10));
                 e.setCantidad(resultSet.getInt(11));
+                a.setIdAlmacen(resultSet.getInt(12));
                 p.setCategoria(c);
                 e.setAlmacen(a);
                 e.setProducto(p);
@@ -117,8 +118,53 @@ public class ExistenciaDao implements IExistenciaDao{
     }
 
     @Override
-    public ArrayList<Existencia> buscarExistencia() {
-        return null;
+    public ArrayList<Existencia> buscarExistencia(String idProducto) {
+        var resultado = new ArrayList<Existencia>();
+        try {
+               
+                String sql = "Select a.nombre, a.tipoalmacen, p.idProducto, p.nombre, p.descripcion, c.nombre, p.precioCompra, p.precioVenta, p.tipoguardado, e.ubicacion, e.cantidad, a.idAlmacen from Existencia as e "
+                        + "inner join Almacen as a "
+                        + "on a.idAlmacen=e.idAlmacen "
+                        + "inner join Producto as p "
+                        + "on e.idProducto = p.idProducto "
+                        + "inner join Categoria as c " 
+                        + "on p.idCategoria=c.IdCategoria "
+                        + "WHERE e.idProducto LIKE '%" +idProducto + "%'";
+            var con = conexion.getConexion();
+            var prepareStatement = con.prepareStatement(sql);
+            var resultSet = prepareStatement.executeQuery();
+            System.out.println("estes es el result "+resultSet);
+            
+            while(resultSet.next()){
+                var p = new Producto();
+                var e = new Existencia();
+                var a = new Almacen();
+                var c = new Categoria();
+                
+                a.setNombre(resultSet.getString(1));
+                a.settAlmacen(resultSet.getString(2));
+                p.setCodProducto(resultSet.getString(3));
+                p.setNombre(resultSet.getString(4));
+                p.setDescripcion(resultSet.getString(5));
+                c.setNombre(resultSet.getString(6));
+                p.setpCompra(resultSet.getDouble(7));
+                p.setpVenta(resultSet.getDouble(8));
+                p.settGuardado(resultSet.getString(9));
+                e.setUbicacion(resultSet.getString(10));
+                e.setCantidad(resultSet.getInt(11));
+                a.setIdAlmacen(resultSet.getInt(12));
+                p.setCategoria(c);
+                e.setAlmacen(a);
+                e.setProducto(p);
+                resultado.add(e);
+            }         
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        conexion.cerrarConexion();
+
+        return resultado;
     }
 
     @Override

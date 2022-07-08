@@ -9,7 +9,7 @@ import manejoProductos.producto.Producto;
 public interface IExistenciaDao {
     public ArrayList<Existencia> obteerExistencia();
     public void registrarExistencia(Existencia e, ArrayList<Almacen> a);
-    public ArrayList<Existencia> buscarExistencia();
+    public ArrayList<Existencia> buscarExistencia(String idProducto);
     public void registrarExistenciaAlmacen(Existencia e,ArrayList<Producto> p);
     
     public Existencia buscarExistenciaByIds(int idAlmacen, String idProducto);

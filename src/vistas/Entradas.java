@@ -319,7 +319,7 @@ public class Entradas extends javax.swing.JPanel {
         IServicioTransaccion ist= ServicioTransaccionFabrica.construir();
         ist.registrarTransaccion(t);
         
-        actualizarExistencia(t.getCantidad());
+        actualizarExistencia(t.getCantidad(),Validador.getUsuario().getAlmacen().getIdAlmacen());
 
         limpiarTabla();
         llenarTablaProductos();
@@ -343,9 +343,9 @@ public class Entradas extends javax.swing.JPanel {
        // }
     }//GEN-LAST:event_jTable2MouseClicked
 
-    public void actualizarExistencia(int cantidad){
+    public void actualizarExistencia(int cantidad,int idAlmacen){
         IServicioExistencia ise = ServicioExistenciaFabrica.construir();
-        var resultado = ise.buscarExistenciaByIds(Validador.getUsuario().getAlmacen().getIdAlmacen(), txtCod.getText().toString().trim());
+        var resultado = ise.buscarExistenciaByIds(idAlmacen, txtCod.getText().toString().trim());
         resultado.setCantidad(cantidad+resultado.getCantidad());
         ise.actualizarExistencia(resultado);
     }

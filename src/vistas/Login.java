@@ -29,6 +29,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         this.setBackground(Color.white);
         this.setLocationRelativeTo(this);
+        this.setResizable(false);
         Image iconoPropio = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/vistas/imagenes/cajas.png"));
         setIconImage(iconoPropio);  
     }

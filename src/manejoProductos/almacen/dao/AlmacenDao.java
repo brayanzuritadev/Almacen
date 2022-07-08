@@ -32,7 +32,7 @@ public class AlmacenDao implements IAlmacenDao {
             ps.setString(1,almacen.getNombre());
             ps.setString(2,almacen.getUbicacion());
             ps.setString(3,almacen.getTelefono());
-            ps.setString(4,"Segundario");
+            ps.setString(4,"Secundario");
             ps.execute();
         }catch(SQLException ex){
             System.out.println(ex.toString());

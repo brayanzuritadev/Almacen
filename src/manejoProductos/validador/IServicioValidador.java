@@ -4,6 +4,8 @@
  */
 package manejoProductos.validador;
 
+import manejoProductos.usuario.Usuario;
+
 /**
  *
  * @author Brayan

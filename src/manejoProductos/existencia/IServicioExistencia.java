@@ -12,4 +12,5 @@ public interface IServicioExistencia {
     public void registrarExistenciaAlmacen(Existencia e, ArrayList<Producto> p);
     
     public void actualizarExistencia(Existencia e);
+    public ArrayList<Existencia> buscarExistencia(String idProducto);
 }

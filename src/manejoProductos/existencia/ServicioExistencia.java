@@ -35,4 +35,9 @@ public class ServicioExistencia implements IServicioExistencia{
         existenciaD.actualizarExistencia(e);
     }
 
+    @Override
+    public ArrayList<Existencia> buscarExistencia(String idProducto) {
+        return existenciaD.buscarExistencia(idProducto);
+    }
+
 } 

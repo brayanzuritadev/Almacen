@@ -13,6 +13,7 @@ import manejoProductos.existencia.ServicioExistenciaFabrica;
 import manejoProductos.producto.IProductoServicio;
 import manejoProductos.producto.Producto;
 import manejoProductos.producto.ProductoServicioFabrica;
+import manejoProductos.validador.Validador;
 
 /**
  *
@@ -55,8 +56,7 @@ public class TablaExistencia extends javax.swing.JPanel {
         tabla = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -76,16 +76,18 @@ public class TablaExistencia extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton2.setBackground(new java.awt.Color(255, 204, 102));
-        jButton2.setText("Buscar");
-        jButton2.setBorder(null);
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
             }
         });
-
-        jTextField4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         javax.swing.GroupLayout tablaLayout = new javax.swing.GroupLayout(tabla);
         tabla.setLayout(tablaLayout);
@@ -95,20 +97,16 @@ public class TablaExistencia extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1193, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 17, Short.MAX_VALUE))
             .addGroup(tablaLayout.createSequentialGroup()
-                .addGap(369, 369, 369)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(467, 467, 467)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         tablaLayout.setVerticalGroup(
             tablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(tablaLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(tablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(35, 35, 35)
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 597, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(116, Short.MAX_VALUE))
         );
@@ -116,18 +114,33 @@ public class TablaExistencia extends javax.swing.JPanel {
         add(tabla, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1210, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public void llenarTablaExistencia(){
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         limpiarTabla();
         IServicioExistencia ptt = ServicioExistenciaFabrica.construir();
-        var productos = ptt.obteerExistencia();
+        var productos = ptt.buscarExistencia(txtBuscar.getText().toString().trim());
+        
+        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal")){
+            llenarTablaExistenciaPrincipal(productos);
+        }else{
+            llenarTablaSecundario(productos);
+        }
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        
+    }//GEN-LAST:event_txtBuscarKeyPressed
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+        
+    }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void llenarTablaExistenciaPrincipal(ArrayList<Existencia> productos){
+        limpiarTabla();
+        
         Object[] datos = new Object[modelo.getColumnCount()];
-
+        
         for (Existencia item : productos) {
-
+            
             datos[0] = item.getAlmacen().getNombre();
             datos[1] = item.getAlmacen().gettAlmacen();
             datos[2] = item.getProducto().getCodProducto();
@@ -141,8 +154,45 @@ public class TablaExistencia extends javax.swing.JPanel {
             datos[10] = item.getCantidad();
             
             modelo.addRow(datos);
+            
         }
         this.jTable1.setModel(modelo);
+    }
+    private void llenarTablaSecundario(ArrayList<Existencia> productos){
+        limpiarTabla();
+        
+        Object[] datos = new Object[modelo.getColumnCount()];
+        
+        for (Existencia item : productos) {
+            System.out.println(Validador.getUsuario().getAlmacen().getIdAlmacen() +"este es el item " + item.getAlmacen().getIdAlmacen());
+            if(Validador.getUsuario().getAlmacen().getIdAlmacen()==item.getAlmacen().getIdAlmacen()){
+            datos[0] = item.getAlmacen().getNombre();
+            datos[1] = item.getAlmacen().gettAlmacen();
+            datos[2] = item.getProducto().getCodProducto();
+            datos[3] = item.getProducto().getNombre();
+            datos[4] = item.getProducto().getDescripcion();
+            datos[5] = item.getProducto().getCategoria().getNombre();
+            datos[6] = item.getProducto().getpCompra();
+            datos[7] = item.getProducto().getpVenta();
+            datos[8] = item.getProducto().gettGuardado();
+            datos[9] = item.getUbicacion();
+            datos[10] = item.getCantidad();
+            
+            modelo.addRow(datos);
+            }
+        }
+        this.jTable1.setModel(modelo);
+    }
+    
+    public void llenarTablaExistencia(){
+        IServicioExistencia ptt = ServicioExistenciaFabrica.construir();
+        var productos = ptt.obteerExistencia();
+        
+        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal")){
+            llenarTablaExistenciaPrincipal(productos);
+        }else{
+            llenarTablaSecundario(productos);
+        }
     }
     
     private void limpiarTabla() {
@@ -152,10 +202,9 @@ public class TablaExistencia extends javax.swing.JPanel {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
     private javax.swing.JScrollPane jScrollPane1;
     protected javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JPanel tabla;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

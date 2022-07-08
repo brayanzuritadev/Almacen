@@ -19,6 +19,15 @@ public class Producto {
     private double pCompra;
     private double pVenta;
     private String tGuardado;
+    private int prioridad;
+
+    public int getPrioridad() {
+        return prioridad;
+    }
+
+    public void setPrioridad(int prioridad) {
+        this.prioridad = prioridad;
+    }
     
     public Categoria getCategoria() {
         return categoria;

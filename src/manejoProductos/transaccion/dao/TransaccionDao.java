@@ -14,6 +14,8 @@ import manejoProductos.existencia.IServicioExistencia;
 import manejoProductos.existencia.ServicioExistenciaFabrica;
 import manejoProductos.producto.Producto;
 import manejoProductos.transaccion.Transaccion;
+import manejoProductos.usuario.Usuario;
+import manejoProductos.validador.Validador;
 
 /**
  *
@@ -30,8 +32,8 @@ public class TransaccionDao implements ITransaccionDao {
     public void registrarTransaccion(Transaccion t) {
         try{
             
-            String sql = "INSERT INTO Transaccion(idAlmacen,idProducto,idUsuario,cantidad,totalTrasaccion,tTransaccion)" +
-                    " VALUES(?,?,?,?,?,?)";
+            String sql = "INSERT INTO Transaccion(idAlmacen,idProducto,idUsuario,cantidad,totalTrasaccion, destino, tTransaccion)" +
+                    " VALUES(?,?,?,?,?,?,?)";
             var con = conexion.getConexion();
             var ps = con.prepareStatement(sql);
             ps.setInt(1,t.getAlmacen().getIdAlmacen());
@@ -39,7 +41,8 @@ public class TransaccionDao implements ITransaccionDao {
             ps.setInt(3,t.getUsuario().getIdUsuario());
             ps.setInt(4,t.getCantidad());
             ps.setDouble(5,t.getTotalTransaccion());
-            ps.setString(6,t.gettTransaccion());
+            ps.setString(6,t.getDestino());
+            ps.setString(7,t.gettTransaccion());
             ps.execute();
         }catch(SQLException ex){
             System.out.println(ex.toString());
@@ -54,7 +57,57 @@ public class TransaccionDao implements ITransaccionDao {
     public ArrayList<Transaccion> obtenerTransaccion(String tipo) {
         var resultado = new ArrayList<Transaccion>();
         try {
-                System.out.println("estamos aqui nueva");
+                
+                String sql = "Select idTransaccion, a.nombre, p.idProducto, p.nombre, p.Descripcion, p.preciocompra, c.nombre"
+                        + ",t.cantidad, t.totalTrasaccion, t.tTransaccion, u.nombre u.idUsuario from Transaccion as t  "
+                        + "inner join Producto as p "
+                        + "on p.idProducto=t.idProducto "
+                        + "inner join Categoria as c "
+                        + "on c.idCategoria =p.IdCategoria "
+                        + "inner join Usuario as u " 
+                        + "on t.idUsuario=u.idUsuario "
+                        + "inner join Almacen as a " 
+                        + "on t.idAlmacen =a.IdAlmacen ";
+                
+                        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal") && tipo == "Entrada"){
+                            sql= sql + "where t.tTransaccion = 'Entrada' "; 
+                        }if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal") && tipo == "Salida"){
+                            sql= sql + "where t.tTransaccion = 'Salida' ";
+                        }if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Secundario") && tipo == "Entrada"){
+                            sql= sql + "where t.tTransaccion = 'Entrada' and WHERE u.idUsuario = " + Validador.getUsuario().getIdUsuario() ;
+                        }if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Secundario") && tipo == "Salida"){
+                            sql= sql + "where t.tTransaccion = 'Salida' and WHERE u.idUsuario = " + Validador.getUsuario().getIdUsuario() ;
+                        }
+                        
+                        
+            var con = conexion.getConexion();
+            var prepareStatement = con.prepareStatement(sql);
+            var resultSet = prepareStatement.executeQuery();
+
+            while (resultSet.next()) {
+                var p = new Producto();
+                var t = new Transaccion();
+                var c = new Categoria();
+                
+                t.setCantidad(resultSet.getInt(1));
+                c.setNombre(resultSet.getString(2));
+                p.setCategoria(c);
+                t.setProdcuto(p);
+                resultado.add(t);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.toString());
+        }
+        conexion.cerrarConexion();
+
+        return resultado;
+    }
+
+    @Override
+    public ArrayList<Transaccion> buscarTransaccion(String valor, String tipo) {
+        var resultado = new ArrayList<Transaccion>();
+        try {
+               
                 String sql = "Select cantidad, c.nombre  from Transaccion as t  "
                         + "inner join Producto as p "
                         + "on p.idProducto=t.idProducto "
@@ -83,11 +136,6 @@ public class TransaccionDao implements ITransaccionDao {
         conexion.cerrarConexion();
 
         return resultado;
-    }
-
-    @Override
-    public ArrayList<Transaccion> buscarTransaccion(String valor, String tipo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

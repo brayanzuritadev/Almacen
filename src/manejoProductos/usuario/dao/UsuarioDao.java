@@ -71,7 +71,7 @@ public class UsuarioDao implements IUsuarioDao{
     public ArrayList<Usuario> obtenerUsuarios() {
             var resultado = new ArrayList<Usuario>();
         try{
-            String sql = "SELECT idUsuario, u.nombre, direccion, ci, u.telefono, password, email, a.nombre,a.IdAlmacen " +
+            String sql = "SELECT idUsuario, u.nombre, direccion, ci, u.telefono, password, email, a.nombre,a.IdAlmacen,a.tipoAlmacen " +
                     " FROM Usuario as u " +
                     " inner join Almacen as a " +
                     " on a.idAlmacen=u.idAlmacen";
@@ -92,6 +92,7 @@ public class UsuarioDao implements IUsuarioDao{
                         u.setEmail(result.getString(7));
                         a.setNombre(result.getString(8));
                         a.setIdAlmacen(result.getInt(9));
+                        a.settAlmacen(result.getString(10));
                         u.setAlmacen(a);
                         resultado.add(u);
                     }

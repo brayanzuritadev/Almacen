@@ -4,6 +4,7 @@
  */
 package vistas;
 
+import javax.swing.JOptionPane;
 import manejoProductos.almacen.Almacen;
 import manejoProductos.almacen.AlmacenServicioFabrica;
 import manejoProductos.almacen.IAlmacenServicio;
@@ -21,10 +22,12 @@ import manejoProductos.validador.Validador;
  * @author Brayan
  */
 public class VUsuario extends javax.swing.JPanel {
+
     DefaultTableModel modelo;
-    Almacen a =new Almacen();
+    Almacen a = new Almacen();
     Usuario u = new Usuario();
     protected boolean banderaUsuario;
+
     /**
      * Creates new form Usuario
      */
@@ -44,7 +47,7 @@ public class VUsuario extends javax.swing.JPanel {
         this.tablaUsuario.setModel(modelo);
         limpiarTablaUsuario();
         llenarTablaUsuarios();
-        
+
     }
 
     /**
@@ -293,7 +296,7 @@ public class VUsuario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        
+
         u.setNombre(txtNombre.getText().toString().trim());
         u.setDireccion(txtDireccion.getText().toString().trim());
         u.setCi(txtCi.getText().toString().trim());
@@ -301,20 +304,20 @@ public class VUsuario extends javax.swing.JPanel {
         u.setPassword(txtPassword.getText().toString().trim());
         u.setEmail(txtEmail.getText().toString().trim());
         u.setAlmacen(a);
-        
-        IUsuarioServicio uf = UsuarioServicioFabrica.construir();
-        uf.RegistrarUsuario(u);
-        llenarTablaUsuarios();
-        
+
+        if (buscarUsuarioRegistrar(u) == true) {
+            IUsuarioServicio uf = UsuarioServicioFabrica.construir();
+            uf.RegistrarUsuario(u);
+            llenarTablaUsuarios();
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        
-        
+
         u.setNombre(txtNombre.getText().toString().trim());
         u.setDireccion(txtDireccion.getText().toString().trim());
         u.setCi(txtCi.getText().toString().trim());
@@ -322,17 +325,19 @@ public class VUsuario extends javax.swing.JPanel {
         u.setPassword(txtPassword.getText().toString().trim());
         u.setEmail(txtEmail.getText().toString().trim());
         u.setAlmacen(a);
-        
-        IUsuarioServicio uf = UsuarioServicioFabrica.construir();
-        uf.modificarUsuario(u);
-        llenarTablaUsuarios();
+
+        if (buscarUsuarioRegistrar(u) == true) {
+            IUsuarioServicio uf = UsuarioServicioFabrica.construir();
+            uf.modificarUsuario(u);
+            llenarTablaUsuarios();
+        }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void CbUsuarioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_CbUsuarioItemStateChanged
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
             var nombre = CbUsuario.getSelectedItem().toString();
             buscarAlmacen(nombre);
-            
+
         }
     }//GEN-LAST:event_CbUsuarioItemStateChanged
 
@@ -358,9 +363,29 @@ public class VUsuario extends javax.swing.JPanel {
             txtTelefono.setText(tablaUsuario.getValueAt(fila, 4).toString());
             txtEmail.setText(tablaUsuario.getValueAt(fila, 5).toString());
             this.CbUsuario.setSelectedItem(tablaUsuario.getValueAt(fila, 6));
-            
+
         }
     }//GEN-LAST:event_tablaUsuarioMouseClicked
+
+    public boolean buscarUsuarioRegistrar(Usuario u) {
+        IUsuarioServicio aus = UsuarioServicioFabrica.construir();
+        var resultados = aus.obtenerUsuarios();
+
+        for (Usuario item : resultados) {
+
+            if (item.getCi().equals(u.getCi())) {
+                JOptionPane.showMessageDialog(null, "El CI ya se encuantra dentro la base de datos verifique");
+                return false;
+            }
+
+            if (item.getEmail().equals(u.getEmail())) {
+                JOptionPane.showMessageDialog(null, "El email ya se encuantra dentro la base de datos verifique");
+                return false;
+            }
+
+        }
+        return true;
+    }
 
     public void llenarComboBox() {
         CbUsuario.removeAllItems();
@@ -379,7 +404,7 @@ public class VUsuario extends javax.swing.JPanel {
             i -= 1;
         }
     }
-    
+
     protected void llenarTablaUsuarios() {
         limpiarTablaUsuario();
         IUsuarioServicio alm = UsuarioServicioFabrica.construir();
@@ -400,11 +425,11 @@ public class VUsuario extends javax.swing.JPanel {
         this.tablaUsuario.setModel(modelo);
         ocultarColumnaTabla();
     }
-    
-    private void buscarAlmacen(String nombre){
+
+    private void buscarAlmacen(String nombre) {
         IAlmacenServicio al = AlmacenServicioFabrica.construir();
         var almacenes = al.obtenerAlmacenes();
-        
+
         if (nombre != "") {
             for (int i = 0; i < almacenes.size(); i++) {
                 if (nombre.equals(almacenes.get(i).getNombre())) {
@@ -422,8 +447,8 @@ public class VUsuario extends javax.swing.JPanel {
             }
         }**/
     }
-    
-    private void ocultarColumnaTabla(){
+
+    private void ocultarColumnaTabla() {
         tablaUsuario.getColumnModel().getColumn(7).setMaxWidth(0);
         tablaUsuario.getColumnModel().getColumn(7).setMinWidth(0);
         tablaUsuario.getColumnModel().getColumn(7).setPreferredWidth(0);

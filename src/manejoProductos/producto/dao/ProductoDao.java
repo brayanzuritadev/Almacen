@@ -19,8 +19,8 @@ public class ProductoDao implements IProductoDao {
     @Override
     public void guardar(Producto p) {
         try {
-            String SQL = "INSERT INTO Producto (idproducto ,nombre, descripcion,idCategoria,precioCompra,precioVenta,tipoGuardado)"
-                    + "VALUES(?,?,?,?,?,?,?)";
+            String SQL = "INSERT INTO Producto (idproducto ,nombre, descripcion,idCategoria,precioCompra,precioVenta,tipoGuardado, prioridad) "
+                    + "VALUES(?,?,?,?,?,?,?,?)";
 
             var con = conexion.getConexion();
 
@@ -32,6 +32,7 @@ public class ProductoDao implements IProductoDao {
             ps.setDouble(5, p.getpCompra());
             ps.setDouble(6, p.getpCompra());
             ps.setString(7, p.gettGuardado());
+            ps.setInt(8, p.getPrioridad());
             ps.execute();
 
         } catch (SQLException ex) {
@@ -51,7 +52,8 @@ public class ProductoDao implements IProductoDao {
                     + "idCategoria = ?, "
                     + "precioCompra = ?, "
                     + "precioVenta = ?, "
-                    + "tipoGuardado = ? "
+                    + "tipoGuardado = ?, "
+                    + "prioridad = ?"
                     + "WHERE idProducto = ?";
 
             var con = conexion.getConexion();
@@ -63,7 +65,9 @@ public class ProductoDao implements IProductoDao {
             ps.setDouble(4, p.getpCompra());
             ps.setDouble(5, p.getpVenta());
             ps.setString(6, p.gettGuardado());
-            ps.setString(7, p.getCodProducto());
+            ps.setInt(7, p.getPrioridad());
+            ps.setString(8, p.getCodProducto());
+            
             ps.executeUpdate();
 
         } catch (SQLException ex) {
@@ -76,7 +80,7 @@ public class ProductoDao implements IProductoDao {
     public ArrayList<Producto> obtener() {
         var resultado = new ArrayList<Producto>();
         try {
-            String sql = "SELECT idProducto, p.nombre, descripcion, c.nombre, precioCompra, precioVenta, tipoGuardado"
+            String sql = "SELECT idProducto, p.nombre, descripcion, c.nombre, precioCompra, precioVenta, tipoGuardado, prioridad "
                     + " FROM Producto as p"
                     + " inner join Categoria as c"
                     + " on p.idCategoria=c.Idcategoria";
@@ -97,6 +101,7 @@ public class ProductoDao implements IProductoDao {
                 p.setpCompra(resultSet.getDouble(5));
                 p.setpVenta(resultSet.getDouble(6));
                 p.settGuardado(resultSet.getString(7));
+                p.setPrioridad(resultSet.getInt(8));
                 resultado.add(p);
 
             }
@@ -112,7 +117,7 @@ public class ProductoDao implements IProductoDao {
     public ArrayList<Producto> buscar(String nombre) {
         var resultado = new ArrayList<Producto>();
         try {
-            String sql = "SELECT idProducto, p.nombre, descripcion, c.nombre, precioCompra, precioVenta, tipoGuardado "
+            String sql = "SELECT idProducto, p.nombre, descripcion, c.nombre, precioCompra, precioVenta, tipoGuardado, prioridad "
                     + "FROM Producto as p "
                     + "inner join Categoria as c "
                     + "on c.idCategoria=p.idCategoria "
@@ -137,6 +142,7 @@ public class ProductoDao implements IProductoDao {
                 p.setpCompra(resultSet.getDouble(5));
                 p.setpVenta(resultSet.getDouble(6));
                 p.settGuardado(resultSet.getString(7));
+                p.setPrioridad(resultSet.getInt(8));
                 resultado.add(p);
             }
         } catch (SQLException ex) {

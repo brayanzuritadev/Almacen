@@ -16,6 +16,7 @@ import manejoProductos.categoria.Categoria;
 import manejoProductos.categoria.ICategoriaServicio;
 import manejoProductos.producto.IProductoServicio;
 import manejoProductos.producto.Producto;
+import manejoProductos.validador.Validador;
 
 /**
  *
@@ -33,7 +34,6 @@ public class VProducto extends javax.swing.JPanel {
      */
     public VProducto() {
         initComponents();
-        // this.jComboBox1.removeAllItems();
 
         llenarComboBox();
         modelo = new DefaultTableModel();
@@ -44,6 +44,8 @@ public class VProducto extends javax.swing.JPanel {
         modelo.addColumn("PCompra");
         modelo.addColumn("PVenta");
         modelo.addColumn("Tipo de guardado");
+        modelo.addColumn("Prioridad");
+        
         this.jTable2.setModel(modelo);
         limpiarTabla();
     }
@@ -76,7 +78,7 @@ public class VProducto extends javax.swing.JPanel {
         txtTGuardado = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
-        txtTGuardado1 = new javax.swing.JTextField();
+        txtPrioridad = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -173,8 +175,8 @@ public class VProducto extends javax.swing.JPanel {
         });
         jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 241, 30));
 
-        txtTGuardado1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel1.add(txtTGuardado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 153, -1));
+        txtPrioridad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.add(txtPrioridad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 153, -1));
 
         jLabel11.setText("Prioridad:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 88, -1));
@@ -296,6 +298,9 @@ public class VProducto extends javax.swing.JPanel {
         p.setpCompra(Double.parseDouble(txtPCompra.getText().toString().trim()));
         p.setpVenta(Double.parseDouble(txtPVenta.getText().toString().trim()));
         p.settGuardado(txtTGuardado.getText().toString().trim());
+        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal")){
+        p.setPrioridad(Integer.parseInt(txtPrioridad.getText().toString().trim()));
+        }
         IProductoServicio p1 = ProductoServicioFabrica.Construir();
         p1.registrar(p);
 
@@ -320,6 +325,9 @@ public class VProducto extends javax.swing.JPanel {
         p.setpCompra(Double.parseDouble(txtPCompra.getText().toString().trim()));
         p.setpVenta(Double.parseDouble(txtPVenta.getText().toString().trim()));
         p.settGuardado(txtTGuardado.getText().toString().trim());
+        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal")){
+        p.setPrioridad(Integer.parseInt(txtPrioridad.getText().toString().trim()));
+        }
         IProductoServicio p1 = ProductoServicioFabrica.Construir();
         p1.modificar(p);
 
@@ -338,6 +346,8 @@ public class VProducto extends javax.swing.JPanel {
             txtPCompra.setText(jTable2.getValueAt(fila, 4).toString());
             txtPVenta.setText(jTable2.getValueAt(fila, 5).toString());
             txtTGuardado.setText(jTable2.getValueAt(fila, 6).toString());
+            txtPrioridad.setText(jTable2.getValueAt(fila, 7).toString());
+            
         }
     }//GEN-LAST:event_jTable2MouseClicked
 
@@ -371,6 +381,7 @@ public class VProducto extends javax.swing.JPanel {
             datos[4] = item.getpCompra();
             datos[5] = item.getpVenta();
             datos[6] = item.gettGuardado();
+            datos[7] = item.getPrioridad();
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);
@@ -425,7 +436,7 @@ public class VProducto extends javax.swing.JPanel {
         txtPCompra.setText("");
         txtPVenta.setText("");
         txtTGuardado.setText("");
-
+        txtPrioridad.setText("");
     }
 
     protected void llenarTablaProductos() {
@@ -443,6 +454,8 @@ public class VProducto extends javax.swing.JPanel {
             datos[4] = item.getpCompra();
             datos[5] = item.getpVenta();
             datos[6] = item.gettGuardado();
+            datos[7] = item.getPrioridad();
+            
             modelo.addRow(datos);
         }
         this.jTable2.setModel(modelo);
@@ -481,8 +494,8 @@ public class VProducto extends javax.swing.JPanel {
     private javax.swing.JTextField txtDescripcion;
     private javax.swing.JTextField txtPCompra;
     private javax.swing.JTextField txtPVenta;
+    public javax.swing.JTextField txtPrioridad;
     private javax.swing.JTextField txtTGuardado;
-    private javax.swing.JTextField txtTGuardado1;
     private javax.swing.JTextField txt_nombre;
     // End of variables declaration//GEN-END:variables
 }

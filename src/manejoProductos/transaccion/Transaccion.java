@@ -12,7 +12,16 @@ public class Transaccion {
     private Usuario usuario;
     private int cantidad;
     private double totalTransaccion;
+    private String destino;
     private String tTransaccion;
+
+    public String getDestino() {
+        return destino;
+    }
+
+    public void setDestino(String destino) {
+        this.destino = destino;
+    }
 
     public int getIdTransaccion() {
         return idTransaccion;

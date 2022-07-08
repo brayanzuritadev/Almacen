@@ -4,8 +4,11 @@
  */
 package vistas;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import manejoProductos.almacen.Almacen;
+import manejoProductos.almacen.AlmacenServicioFabrica;
+import manejoProductos.almacen.IAlmacenServicio;
 import manejoProductos.categoria.Categoria;
 import manejoProductos.categoria.CategoriaServicioFabrica;
 import manejoProductos.categoria.ICategoriaServicio;
@@ -19,7 +22,7 @@ import manejoProductos.transaccion.ServicioTransaccionFabrica;
 import manejoProductos.transaccion.Transaccion;
 import manejoProductos.usuario.Usuario;
 import manejoProductos.validador.Validador;
-import paquete.segundo.parcial.Imprimir;
+import recibo.segundo.parcial.Imprimir;
 
 /**
  *
@@ -29,10 +32,11 @@ public class Salidas extends javax.swing.JPanel {
 
     Producto p = new Producto();
     Categoria c = new Categoria();
-    Usuario u= new Usuario();
+    Usuario u = new Usuario();
     Almacen a = new Almacen();
     Transaccion t = new Transaccion();
     DefaultTableModel modelo;
+
     /**
      * Creates new form Entradas
      */
@@ -48,8 +52,6 @@ public class Salidas extends javax.swing.JPanel {
         modelo.addColumn("PVenta");
         modelo.addColumn("Tipo de guardado");
         this.jTable2.setModel(modelo);
-        limpiarTabla();
-        llenarTablaProductos();
     }
 
     /**
@@ -78,9 +80,10 @@ public class Salidas extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         txtTGuardado = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         txtCantidad = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -94,7 +97,7 @@ public class Salidas extends javax.swing.JPanel {
         jPanel1.setPreferredSize(new java.awt.Dimension(300, 800));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel7.setText("Registrar Producto");
+        jLabel7.setText("Registrar Salida");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 157, -1));
 
         jLabel1.setText("Codigo:");
@@ -163,23 +166,35 @@ public class Salidas extends javax.swing.JPanel {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 241, 30));
-
-        btnModificar.setBackground(new java.awt.Color(255, 204, 102));
-        btnModificar.setText("Modificar");
-        btnModificar.setBorder(null);
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 241, 30));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 241, 30));
 
         txtCantidad.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 370, 153, -1));
 
         jLabel11.setText("Cantidad:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 88, -1));
+
+        jLabel9.setText("Destino:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 61, -1));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jComboBox2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox2KeyPressed(evt);
+            }
+        });
+        jPanel1.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, 153, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(900, 800));
@@ -285,53 +300,63 @@ public class Salidas extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox1KeyPressed
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if (jComboBox2.getSelectedItem().toString().equals("Seleccionar") && Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal")) {
+            JOptionPane.showMessageDialog(null, "Seleccione un tipo de salida");
+            return;
+        }
+        
+
+        if (Validador.getUsuario().getAlmacen().gettAlmacen().equals("Principal")) {
+            t.setDestino("" + a.getIdAlmacen());
+        } else {
+            t.setDestino("Venta");
+        }
+        
+        actualizarExistencia(Integer.parseInt(txtCantidad.getText().toString().trim()),a.getIdAlmacen());
+        t.settTransaccion("Salida");
         p.setCodProducto(txtCod.getText().toString().trim());
         u.setIdUsuario(Validador.getUsuario().getIdUsuario());
         a.setIdAlmacen(Validador.getUsuario().getAlmacen().getIdAlmacen());
-        t.settTransaccion("Salida");
-        t.setCantidad(Integer.parseInt(txtCantidad.getText().toString().trim()));
-        t.setTotalTransaccion((Double.parseDouble(txtPCompra.getText().toString().trim()))*t.getCantidad());
+        t.setCantidad(-1*Integer.parseInt(txtCantidad.getText().toString().trim()));
+        t.setTotalTransaccion((Double.parseDouble(txtPCompra.getText().toString().trim())) * t.getCantidad());
         t.setAlmacen(a);
         t.setProdcuto(p);
         t.setUsuario(u);
         System.out.println(Validador.getUsuario().getAlmacen().getIdAlmacen());
-        IServicioTransaccion ist= ServicioTransaccionFabrica.construir();
+        IServicioTransaccion ist = ServicioTransaccionFabrica.construir();
         ist.registrarTransaccion(t);
 
-        actualizarExistencia(t.getCantidad());
+        actualizarExistencia(t.getCantidad(),Validador.getUsuario().getAlmacen().getIdAlmacen());
+        
         Imprimir i = new Imprimir();
-        i.dibujarReporte(txtCod.getText().toString().trim(),txt_nombre.getText().toString(),
-                jComboBox1.getSelectedItem().toString(),txtPCompra.getText().toString(),txtPVenta.getText().toString(),
-                ""+a.getIdAlmacen(),txtDescripcion.getText().toString());
+        i.dibujarReporte(txtCod.getText().toString().trim(), txt_nombre.getText().toString(),
+                jComboBox1.getSelectedItem().toString(), txtPCompra.getText().toString(), txtPVenta.getText().toString(),
+                "" + a.getIdAlmacen(), txtDescripcion.getText().toString());
         limpiarTabla();
         llenarTablaProductos();
         limpiarCampos();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-
-    }//GEN-LAST:event_btnModificarActionPerformed
-
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         //if (bandera == true) {
-            int fila = this.jTable2.getSelectedRow();
-            txtCod.setText(jTable2.getValueAt(fila, 0).toString());
-            txt_nombre.setText(jTable2.getValueAt(fila, 1).toString());
-            txtDescripcion.setText(jTable2.getValueAt(fila, 2).toString());
-            this.jComboBox1.setSelectedItem(jTable2.getValueAt(fila, 3));
-            txtPCompra.setText(jTable2.getValueAt(fila, 4).toString());
-            txtPVenta.setText(jTable2.getValueAt(fila, 5).toString());
-            txtTGuardado.setText(jTable2.getValueAt(fila, 6).toString());
-            // }
+        int fila = this.jTable2.getSelectedRow();
+        txtCod.setText(jTable2.getValueAt(fila, 0).toString());
+        txt_nombre.setText(jTable2.getValueAt(fila, 1).toString());
+        txtDescripcion.setText(jTable2.getValueAt(fila, 2).toString());
+        this.jComboBox1.setSelectedItem(jTable2.getValueAt(fila, 3));
+        txtPCompra.setText(jTable2.getValueAt(fila, 4).toString());
+        txtPVenta.setText(jTable2.getValueAt(fila, 5).toString());
+        txtTGuardado.setText(jTable2.getValueAt(fila, 6).toString());
+        // }
     }//GEN-LAST:event_jTable2MouseClicked
 
-    public void actualizarExistencia(int cantidad){
+    public void actualizarExistencia(int cantidad,int idAlmacen) {
         IServicioExistencia ise = ServicioExistenciaFabrica.construir();
-        var resultado = ise.buscarExistenciaByIds(Validador.getUsuario().getAlmacen().getIdAlmacen(), txtCod.getText().toString().trim());
-        resultado.setCantidad(resultado.getCantidad()-cantidad);
+        var resultado = ise.buscarExistenciaByIds(idAlmacen, txtCod.getText().toString().trim());
+        resultado.setCantidad(resultado.getCantidad() - cantidad);
         ise.actualizarExistencia(resultado);
     }
-    
+
     private void jTextField5InputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_jTextField5InputMethodTextChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5InputMethodTextChanged
@@ -367,6 +392,33 @@ public class Salidas extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jTextField5KeyTyped
 
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+            var nombre = jComboBox2.getSelectedItem();
+            buscarAlmacen((String) nombre);
+        }
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2KeyPressed
+
+    private void buscarAlmacen(String nombre) {
+        IAlmacenServicio ia = AlmacenServicioFabrica.construir();
+        var almacenes = ia.buscarAlmacen(nombre);
+        if (nombre != "") {
+            for (int i = 0; i < almacenes.size(); i++) {
+                if (nombre.equals(almacenes.get(i).getNombre())) {
+                    a.setIdAlmacen(almacenes.get(i).getIdAlmacen());
+                    System.out.println("este es el almacen " +a.getIdAlmacen());
+                }
+            }
+        }
+    }
 
     private void buscarCategoria(int id, String nombre) {
 
@@ -393,11 +445,26 @@ public class Salidas extends javax.swing.JPanel {
 
     public void llenarComboBox() {
         jComboBox1.removeAllItems();
-        this.jComboBox1.addItem("Selecciona");
+        this.jComboBox1.addItem("Seleccionar");
         ICategoriaServicio c1 = CategoriaServicioFabrica.Construir();
         var categorias = c1.obtenerCategorias();
         for (int i = 0; i < categorias.size(); i++) {
             jComboBox1.addItem(categorias.get(i).getNombre());
+        }
+    }
+
+    public void llenarComboBoxAlmacen() {
+        jComboBox2.removeAllItems();
+        this.jComboBox2.addItem("Seleccionar");
+        IAlmacenServicio a = AlmacenServicioFabrica.construir();
+        var almacenes = a.obtenerAlmacenes();
+        for (int i = 0; i < almacenes.size(); i++) {
+
+            jComboBox2.addItem(almacenes.get(i).getNombre());
+            if (almacenes.get(i).getNombre().equals(Validador.getUsuario().getAlmacen().getNombre())) {
+                System.out.println(Validador.getUsuario().getAlmacen().getNombre());
+                jComboBox2.removeItem(almacenes.get(i).getNombre());
+            }
         }
     }
 
@@ -439,10 +506,11 @@ public class Salidas extends javax.swing.JPanel {
         this.jTable2.setModel(modelo);
 
     }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btnModificar;
     public javax.swing.JButton btnRegistrar;
     public javax.swing.JComboBox<String> jComboBox1;
+    public javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -452,6 +520,7 @@ public class Salidas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     public javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    public javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;

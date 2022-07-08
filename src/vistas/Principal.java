@@ -5,7 +5,7 @@
 package vistas;
 
 import Estadistica.src.estadistica.Grafico;
-import control.tiempo.usuario.ControlIngreso;
+import controlSesion.java.control.tiempo.usuario.ControlIngreso;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -25,15 +25,12 @@ import manejoProductos.validador.Validador;
 public class Principal extends javax.swing.JFrame {
 
     VProducto rp = new VProducto();
-    Tabla tb = new Tabla();
     VCategoria c = new VCategoria();
     VAlmacen a = new VAlmacen();
-    TipoGuardado tg = new TipoGuardado();
     Entradas e = new Entradas();
     Salidas s = new Salidas();
     VProducto ts = new VProducto();
     VUsuario u = new VUsuario();
-    Proveedor p = new Proveedor();
     InformeEntrada ie = new InformeEntrada();
     InformeSalidas is = new InformeSalidas();
     TablaExistencia te =new TablaExistencia();
@@ -82,18 +79,18 @@ public class Principal extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        MenuUsuario = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
-        jMenu6 = new javax.swing.JMenu();
+        MenuUsuario = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
+        jMenuItem8 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         jMenuItem2.setText("jMenuItem2");
@@ -167,34 +164,6 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu4);
 
-        MenuUsuario.setText("Usuarios");
-
-        jMenuItem6.setText("Registrar Usuario");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
-            }
-        });
-        MenuUsuario.add(jMenuItem6);
-
-        jMenuItem13.setText("Modificar/Eliminar Usuario");
-        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem13ActionPerformed(evt);
-            }
-        });
-        MenuUsuario.add(jMenuItem13);
-
-        jMenuItem8.setText("Login");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
-            }
-        });
-        MenuUsuario.add(jMenuItem8);
-
-        jMenuBar1.add(MenuUsuario);
-
         jMenu5.setText("Consultas");
 
         jMenuItem5.setText("Existencia");
@@ -223,6 +192,19 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu6.setText("Estadisticas");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
+        jMenu6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jMenu6KeyPressed(evt);
+            }
+        });
+        jMenuBar1.add(jMenu6);
+
         jMenu7.setText("Almacenes");
 
         jMenuItem14.setText("Registrar Almacen");
@@ -243,18 +225,33 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu7);
 
-        jMenu6.setText("Estadisticas");
-        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu6MouseClicked(evt);
+        MenuUsuario.setText("Usuarios");
+
+        jMenuItem6.setText("Registrar Usuario");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
             }
         });
-        jMenu6.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jMenu6KeyPressed(evt);
+        MenuUsuario.add(jMenuItem6);
+
+        jMenuItem13.setText("Modificar/Eliminar Usuario");
+        jMenuItem13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem13ActionPerformed(evt);
             }
         });
-        jMenuBar1.add(jMenu6);
+        MenuUsuario.add(jMenuItem13);
+
+        jMenuItem8.setText("Login");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        MenuUsuario.add(jMenuItem8);
+
+        jMenuBar1.add(MenuUsuario);
 
         jMenu2.setText("Salir");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -295,6 +292,12 @@ public class Principal extends javax.swing.JFrame {
         this.add(s).setBounds(0, 0, 1200, 800);
         s.setVisible(true);
         s.llenarTablaProductos();
+        s.llenarComboBoxAlmacen();
+        s.llenarComboBox();
+        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Secundario")){
+        s.jComboBox2.setVisible(false);
+        s.jLabel9.setVisible(false);
+        }
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
@@ -340,7 +343,7 @@ public class Principal extends javax.swing.JFrame {
     public void llenarTablaCategoria(ArrayList<Categoria> categoria) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("nombre");
-        this.tb.jTable1.setModel(model);
+        //this.jTable1.setModel(model);
     }
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -349,7 +352,9 @@ public class Principal extends javax.swing.JFrame {
         this.add(rp).setBounds(0, 0, 1200, 800);
         rp.setVisible(true);
         rp.jComboBox1.removeAllItems();
-
+        if(Validador.getUsuario().getAlmacen().gettAlmacen().equals("Secundario")){
+        rp.txtPrioridad.setEditable(false);
+        }
         rp.llenarComboBox();
         rp.llenarTablaProductos();
         rp.jLabel7.setText("Producto");
@@ -454,13 +459,10 @@ public class Principal extends javax.swing.JFrame {
 
     private void ocultarVentanas() {
         rp.setVisible(false);
-        tb.setVisible(false);
         c.setVisible(false);
         a.setVisible(false);
         e.setVisible(false);
         s.setVisible(false);
-        p.setVisible(false);
-        tg.setVisible(false);
         ts.setVisible(false);
         u.setVisible(false);
         is.setVisible(false);
